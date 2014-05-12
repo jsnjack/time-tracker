@@ -1,0 +1,14 @@
+<schemalist>
+  <schema id="org.gnome.shell.extensions.time-tracker" path="/org/gnome/shell/extensions/time-tracker/">
+    <key name="start-time" type="s">
+      <default>'Time tracker'</default>
+      <summary>Start time</summary>
+      <description>Used to show difference with current time</description>
+    </key>
+    <key name="show-seconds" type="b">
+      <default>false</default>
+      <summary>Show seconds</summary>
+      <description>Set to true to show seconds</description>
+    </key>
+  </schema>
+</schemalist>
