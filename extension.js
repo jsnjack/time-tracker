@@ -67,7 +67,7 @@ function _to_string(time) {
 
 
 function init() {
-    button = new St.Button();
+    button = new St.Button({style_class: 'button-style'});
     settings = Convenience.getSettings();
     // Get start_time from settings
     start_time_string = settings.get_string('start-time');
