@@ -67,6 +67,10 @@ function _to_string(time) {
 
 
 function init() {
+}
+
+
+function enable() {
     button = new St.Button({style_class: 'button-style'});
     settings = Convenience.getSettings();
     // Get start_time from settings
@@ -80,14 +84,12 @@ function init() {
     button.set_label('Time Tracker');
     Mainloop.timeout_add(1000, function () { _refresh(); })
     button.connect('button-press-event', _restart)
-}
 
-
-function enable() {
     Main.panel._rightBox.insert_child_at_index(button, 0);
 }
 
 
 function disable() {
     Main.panel._rightBox.remove_child(button);
+    button.destroy();
 }

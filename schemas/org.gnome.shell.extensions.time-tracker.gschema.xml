@@ -1,4 +1,5 @@
-<schemalist>
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist >
   <schema id="org.gnome.shell.extensions.time-tracker" path="/org/gnome/shell/extensions/time-tracker/">
     <key name="start-time" type="s">
       <default>'Time tracker'</default>
