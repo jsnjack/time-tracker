@@ -30,9 +30,9 @@ function _refresh() {
     var secs = difference;
     // Prepare timer info
     if (settings.get_boolean('show-seconds') === true) {
-        timer = hours.toString() + ':' + _to_string(mins) + ':' + _to_string(secs);
+        timer = "%d:%02d:%02d".format(hours, mins, secs);
     } else {
-        timer = hours.toString() + ':' + _to_string(mins);
+        timer = "%d:%02d".format(hours, mins);
     }
     button.set_label(timer);
     Mainloop.timeout_add(1000, function () { _refresh(); })
@@ -53,16 +53,6 @@ function _restart() {
     });
     notification.setTransient(true);
     source.notify(notification);
-}
-
-
-function _to_string(time) {
-    // Add extra zero if there is only one digit
-    time_string = time.toString();
-    if (time_string.length === 1) {
-        time_string = '0' + time_string;
-    }
-    return time_string
 }
 
 
