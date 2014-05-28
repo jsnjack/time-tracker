@@ -10,7 +10,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
 
-let start_time, button, start_time_string, settings;
+let start_time, button, start_time_string, settings, timeout;
 
 
 function _refresh() {
@@ -35,7 +35,7 @@ function _refresh() {
         timer = "%d:%02d".format(hours, mins);
     }
     button.set_label(timer);
-    Mainloop.timeout_add(1000, function () { _refresh(); })
+    timeout = Mainloop.timeout_add(1000, function () { _refresh(); });
 }
 
 
@@ -72,14 +72,14 @@ function enable() {
         settings.set_string('start-time', start_time.toString());
     }
     button.set_label('Time Tracker');
-    Mainloop.timeout_add(1000, function () { _refresh(); })
-    button.connect('button-press-event', _restart)
+    timeout = Mainloop.timeout_add(1000, function () { _refresh(); });
+    button.connect('button-press-event', _restart);
 
     Main.panel._rightBox.insert_child_at_index(button, 0);
 }
 
 
 function disable() {
-    Main.panel._rightBox.remove_child(button);
     button.destroy();
+    Mainloop.remove_source(timeout);
 }
