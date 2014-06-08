@@ -9,6 +9,8 @@ const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
+const Gettext = imports.gettext.domain('time-tracker');
+const _ = Gettext.gettext;
 
 let start_time, button, start_time_string, settings, timeout;
 
@@ -43,10 +45,10 @@ function _restart() {
     // Restart timer. Set new value for start_time
     let source = new MessageTray.SystemNotificationSource();
     Main.messageTray.add(source);
-    var message_title = 'Current start time: ' + start_time.toString();
-    var message_body = 'Confirm to restart timer';
+    var message_title = _("Current start time:")+ ' ' + start_time.toString();
+    var message_body = _("Confirm to restart timer");
     let notification = new MessageTray.Notification(source, message_body, message_title);
-    notification.addButton('restart', 'Restart');
+    notification.addButton('restart', _("Restart"));
     notification.connect('action-invoked', function() {
         start_time = new Date();
         settings.set_string('start-time', start_time.toString());
@@ -57,6 +59,7 @@ function _restart() {
 
 
 function init() {
+    Convenience.initTranslations("time-tracker");
 }
 
 
@@ -83,3 +86,4 @@ function disable() {
     button.destroy();
     Mainloop.remove_source(timeout);
 }
+
