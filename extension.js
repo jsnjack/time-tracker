@@ -84,6 +84,6 @@ function enable() {
 
 function disable() {
     button.destroy();
-    Mainloop.remove_source(timeout);
+    Mainloop.source_remove(timeout);
 }
 
