@@ -37,7 +37,6 @@ function _refresh() {
         timer = "%d:%02d".format(hours, mins);
     }
     button.set_label(timer);
-    timeout = Mainloop.timeout_add(1000, function () { _refresh(); });
 }
 
 
@@ -75,7 +74,10 @@ function enable() {
         settings.set_string('start-time', start_time.toString());
     }
     button.set_label('Time Tracker');
-    timeout = Mainloop.timeout_add(1000, function () { _refresh(); });
+    timeout = Mainloop.timeout_add(1000, function () {
+        _refresh();
+        return true
+    });
     button.connect('button-press-event', _restart);
 
     Main.panel._rightBox.insert_child_at_index(button, 0);
