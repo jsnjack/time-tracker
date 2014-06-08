@@ -1,1 +1,8 @@
-{"shell-version": ["3.10.4"], "uuid": "time_tracker_jsnjack@gmail.com", "name": "Time Tracker", "description": "Helps track time", "settings-schema": "org.gnome.shell.extensions.time-tracker"}
+{
+    "shell-version": ["3.10.4"],
+    "uuid": "time_tracker_jsnjack@gmail.com",
+    "name": "Time Tracker",
+    "description": "Helps track time",
+    "settings-schema": "org.gnome.shell.extensions.time-tracker",
+    "url": "https://github.com/e-shulitsky/time-tracker/"
+}
