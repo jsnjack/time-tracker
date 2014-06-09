@@ -13,7 +13,7 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
 
-let start_time, button, start_time_string, settings, timeout;
+let start_time, button, start_time_string, settings, timeout, locale;
 
 
 function _refresh() {
@@ -45,7 +45,15 @@ function _restart() {
     // Restart timer. Set new value for start_time
     let source = new MessageTray.SystemNotificationSource();
     Main.messageTray.add(source);
-    var message_title = _("Current start time:")+ ' ' + start_time.toString();
+    // Set output format for date and time
+    var options = {weekday: "short",
+                   day: "numeric",
+                   month: "short",
+                   year: "numeric",
+                   hour: "numeric",
+                   minute: "numeric",
+                   second: "numeric"};
+    var message_title = _("Current start time:")+ ' ' + start_time.toLocaleString(locale, options);
     var message_body = _("Confirm to restart timer");
     let notification = new MessageTray.Notification(source, message_body, message_title);
     notification.addButton('restart', _("Restart"));
@@ -64,6 +72,8 @@ function init() {
 
 
 function enable() {
+    // Get locale
+    locale = Convenience.getSettings('org.gnome.system.locale').get_string('region').split('.')[0]
     button = new St.Button({style_class: 'button-style'});
     settings = Convenience.getSettings();
     // Get start_time from settings
