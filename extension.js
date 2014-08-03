@@ -52,7 +52,7 @@ function _restart() {
     var message_title = _("Current start time:")+ ' ' + start_time.toLocaleString();
     var message_body = _("Confirm to restart timer");
     let notification = new MessageTray.Notification(source, message_body, message_title);
-    if (shell_version[0] === 3 && shell_version[1] === 10) {
+    if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('restart', _("Restart"));
         notification.connect('action-invoked', function() {
             on_reset();
