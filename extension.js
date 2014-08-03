@@ -52,14 +52,14 @@ function _restart() {
     var message_title = _("Current start time:")+ ' ' + start_time.toLocaleString();
     var message_body = _("Confirm to restart timer");
     let notification = new MessageTray.Notification(source, message_body, message_title);
-    var restart_button = new St.Button();
-    restart_button.set_label(_("Restart"))
     if (shell_version[0] === 3 && shell_version[1] === 10) {
         notification.addButton('restart', _("Restart"));
         notification.connect('action-invoked', function() {
             on_reset();
         });
     } else {
+        var restart_button = new St.Button();
+        restart_button.set_label(_("Restart"))
         notification.addButton(restart_button, on_reset);
     }
     notification.setTransient(true);
