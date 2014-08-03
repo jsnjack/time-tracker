@@ -58,7 +58,7 @@ function _restart() {
             on_reset();
         });
     } else {
-        var restart_button = new St.Button();
+        var restart_button = new St.Button({style_class: 'modal-dialog-button'});
         restart_button.set_label(_("Restart"))
         notification.addButton(restart_button, on_reset);
     }
