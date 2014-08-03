@@ -35,6 +35,7 @@ function _refresh() {
     }
     var secs = difference;
     // Prepare timer info
+    var timer;
     if (settings.get_boolean('show-seconds') === true) {
         timer = "%d:%02d:%02d".format(hours, mins, secs);
     } else {
