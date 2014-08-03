@@ -6,6 +6,7 @@ const Mainloop = imports.mainloop;
 const MessageTray = imports.ui.messageTray;
 const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
+const ShellConfig = imports.misc.config;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -14,6 +15,8 @@ const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
 
 let start_time, button, start_time_string, settings, timeout;
+
+let shell_version = ShellConfig.PACKAGE_VERSION.split(".");
 
 
 function _refresh() {
@@ -48,13 +51,24 @@ function _restart() {
     var message_title = _("Current start time:")+ ' ' + start_time.toLocaleString();
     var message_body = _("Confirm to restart timer");
     let notification = new MessageTray.Notification(source, message_body, message_title);
-    notification.addButton('restart', _("Restart"));
-    notification.connect('action-invoked', function() {
-        start_time = new Date();
-        settings.set_string('start-time', start_time.toString());
-    });
+    var restart_button = new St.Button();
+    restart_button.set_label(_("Restart"))
+    if (shell_version[0] === 3 && shell_version[1] === 10) {
+        notification.addButton('restart', _("Restart"));
+        notification.connect('action-invoked', function() {
+            on_reset();
+        });
+    } else {
+        notification.addButton(restart_button, on_reset);
+    }
     notification.setTransient(true);
     source.notify(notification);
+}
+
+
+function on_reset() {
+    start_time = new Date();
+    settings.set_string('start-time', start_time.toString());
 }
 
 
