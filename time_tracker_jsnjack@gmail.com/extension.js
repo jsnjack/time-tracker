@@ -28,6 +28,12 @@ function _refresh() {
     // and show it
     var current_time = new Date(),
         difference, hours, mins, secs, timer;
+    // Check if start_time needs update:
+    if (settings.get_boolean("update-start-time")) {
+        start_time_string = settings.get_string('start-time');
+        start_time = new Date(start_time_string);
+        settings.set_boolean("update-start-time", false);
+    }
     // Get difference between two times in secs
     difference = Math.round((current_time - start_time) / 1000);
     hours = parseInt(difference / 3600, 10);
