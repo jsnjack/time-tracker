@@ -42,7 +42,7 @@ function buildPrefsWidget() {
         seconds_label = new Gtk.Label({label: _("Show seconds"), margin_right: 10}),
         seconds_switch = new Gtk.Switch({active: settings.get_boolean('show-seconds')}),
 
-        adjust_time_label = new Gtk.Label({ label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0 }),
+        adjust_time_label = new Gtk.Label({ label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20 }),
         start_time_label = new Gtk.Label({ label: _("Current start time: ") + start_time.toLocaleString()}),
         adjust_time_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_left: 20 }),
         hours_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL}),
@@ -61,21 +61,21 @@ function buildPrefsWidget() {
                                        value: 0});
 
 
-    display_box.add(seconds_label);
-    display_box.add(seconds_switch);
+    display_box.pack_start(seconds_label, false, false, 3);
+    display_box.pack_start(seconds_switch, false, false, 3);
 
-    hours_box.add(hours_label);
-    hours_box.add(hours_spin);
-    mins_box.add(mins_label);
-    mins_box.add(mins_spin);
-    adjust_time_box.add(hours_box);
-    adjust_time_box.add(mins_box);
+    hours_box.pack_start(hours_label, false, false, 3);
+    hours_box.pack_start(hours_spin, false, false, 3);
+    mins_box.pack_start(mins_label, false, false, 3);
+    mins_box.pack_start(mins_spin, false, false, 3);
+    adjust_time_box.pack_start(hours_box, false, false, 3);
+    adjust_time_box.pack_start(mins_box, false, false, 3);
 
-    widget.add(display_label);
-    widget.add(display_box);
-    widget.add(adjust_time_label);
-    widget.add(start_time_label);
-    widget.add(adjust_time_box);
+    widget.pack_start(display_label, false, false, 3);
+    widget.pack_start(display_box, false, false, 3);
+    widget.pack_start(adjust_time_label, false, false, 3);
+    widget.pack_start(start_time_label, false, false, 3);
+    widget.pack_start(adjust_time_box, false, false, 3);
 
     //Callbacks
     seconds_switch.connect("notify::active", function (state) {
