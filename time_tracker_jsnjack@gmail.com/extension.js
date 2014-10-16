@@ -58,11 +58,15 @@ function _refresh() {
 function _restart() {
     // Restart timer. Set new value for start_time
     var source = new MessageTray.SystemNotificationSource(),
-        message_body, message_title, notification, restart_button, modify_button;
+        message_body, message_title, notification, restart_button, modify_button, icon_modify,
+        icon_restart;
     Main.messageTray.add(source);
     message_title = _("Current start time:") + ' ' + start_time.toLocaleString();
     message_body = _("Confirm to restart timer");
     notification = new MessageTray.Notification(source, message_body, message_title);
+
+    icon_modify = new St.Icon({icon_name: 'preferences-system-symbolic', icon_size: 16});
+    icon_restart = new St.Icon({icon_name: 'view-refresh-symbolic', icon_size: 16});
     if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('modify', _("Modify"));
         notification.addButton('restart', _("Restart"));
@@ -77,10 +81,12 @@ function _restart() {
         });
     } else {
         // For GNOME Shell 3.12 and newer
-        restart_button = new St.Button({style_class: 'modal-dialog-button button-restart'});
+        restart_button = new St.Button({style_class: 'system-menu-action button-restart'});
         restart_button.set_label(_("Restart"));
-        modify_button = new St.Button({style_class: 'modal-dialog-button'});
+        restart_button.set_child(icon_restart);
+        modify_button = new St.Button({style_class: 'system-menu-action'});
         modify_button.set_label(_("Modify"));
+        modify_button.set_child(icon_modify);
         notification.addButton(modify_button, on_modify);
         notification.addButton(restart_button, on_reset);
     }
