@@ -60,6 +60,8 @@ function _restart() {
     if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('modify', _("Modify"));
         notification.addButton('restart', _("Restart"));
+        get_button(notification, 'restart').add_style_class_name('button-restart');
+
         notification.connect('action-invoked', function (action, action_id) {
             if (action_id === "restart") {
                 on_reset();
@@ -75,6 +77,16 @@ function _restart() {
     }
     notification.setTransient(true);
     source.notify(notification);
+}
+
+
+function get_button(parent, action_id) {
+    // Get button by action id
+    var button;
+    button = parent._buttonBox.get_children().filter(function (b) {
+                return b._actionId === action_id;
+            })[0];
+    return button;
 }
 
 

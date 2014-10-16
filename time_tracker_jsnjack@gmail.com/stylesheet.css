@@ -2,3 +2,7 @@
 .button-style {
     color: #C0C0C0;
 }
+.button-restart {
+    background-gradient-start: rgba(137, 71, 71, 0.7);
+    background-gradient-end: rgba(137, 71, 71, 0.5);
+}
