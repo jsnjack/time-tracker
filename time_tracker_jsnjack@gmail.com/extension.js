@@ -1,3 +1,6 @@
+/*globals imports */
+/*jslint nomen: true */
+
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
@@ -14,28 +17,28 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
 
-let start_time, button, start_time_string, settings, timeout;
+var start_time, button, start_time_string, settings, timeout;
 
-let shell_version = ShellConfig.PACKAGE_VERSION.split(".");
+var shell_version = ShellConfig.PACKAGE_VERSION.split(".");
 
 
 function _refresh() {
     // Get difference between start time and current time
     // and show it
-    var current_time = new Date();
+    var current_time = new Date(),
+        difference, hours, mins, secs, timer;
     // Get difference between two times in secs
-    var difference = Math.round((current_time - start_time)/1000);
-    var hours = parseInt(difference/3600);
+    difference = Math.round((current_time - start_time) / 1000);
+    hours = parseInt(difference / 3600, 10);
     if (hours !== 0) {
         difference = difference - hours * 3600;
     }
-    var mins = parseInt(difference/60);
+    mins = parseInt(difference / 60, 10);
     if (mins !== 0) {
         difference = difference - mins * 60;
     }
-    var secs = difference;
+    secs = difference;
     // Prepare timer info
-    var timer;
     if (settings.get_boolean('show-seconds') === true) {
         timer = "%d:%02d:%02d".format(hours, mins, secs);
     } else {
@@ -47,19 +50,20 @@ function _refresh() {
 
 function _restart() {
     // Restart timer. Set new value for start_time
-    let source = new MessageTray.SystemNotificationSource();
+    var source = new MessageTray.SystemNotificationSource(),
+        message_body, message_title, notification, restart_button;
     Main.messageTray.add(source);
-    var message_title = _("Current start time:")+ ' ' + start_time.toLocaleString();
-    var message_body = _("Confirm to restart timer");
-    let notification = new MessageTray.Notification(source, message_body, message_title);
+    message_title = _("Current start time:") + ' ' + start_time.toLocaleString();
+    message_body = _("Confirm to restart timer");
+    notification = new MessageTray.Notification(source, message_body, message_title);
     if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('restart', _("Restart"));
-        notification.connect('action-invoked', function() {
+        notification.connect('action-invoked', function () {
             on_reset();
         });
     } else {
-        var restart_button = new St.Button({style_class: 'modal-dialog-button'});
-        restart_button.set_label(_("Restart"))
+        restart_button = new St.Button({style_class: 'modal-dialog-button'});
+        restart_button.set_label(_("Restart"));
         notification.addButton(restart_button, on_reset);
     }
     notification.setTransient(true);
@@ -92,7 +96,7 @@ function enable() {
     button.set_label('Time Tracker');
     timeout = Mainloop.timeout_add(1000, function () {
         _refresh();
-        return true
+        return true;
     });
     button.connect('button-press-event', _restart);
 
