@@ -10,6 +10,7 @@ const MessageTray = imports.ui.messageTray;
 const St = imports.gi.St;
 const Tweener = imports.ui.tweener;
 const ShellConfig = imports.misc.config;
+const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -57,11 +58,17 @@ function _restart() {
     message_body = _("Confirm to restart timer");
     notification = new MessageTray.Notification(source, message_body, message_title);
     if (shell_version[0] === "3" && shell_version[1] === "10") {
+        notification.addButton('modify', _("Modify"));
         notification.addButton('restart', _("Restart"));
-        notification.connect('action-invoked', function () {
-            on_reset();
+        notification.connect('action-invoked', function (action, action_id) {
+            if (action_id === "restart") {
+                on_reset();
+            } else  if (action_id === "modify") {
+                on_modify();
+            }
         });
     } else {
+        // For GNOME Shell 3.12 and newer
         restart_button = new St.Button({style_class: 'modal-dialog-button'});
         restart_button.set_label(_("Restart"));
         notification.addButton(restart_button, on_reset);
@@ -70,6 +77,12 @@ function _restart() {
     source.notify(notification);
 }
 
+
+function on_modify() {
+    // Show GNOME Shell preferences
+    Util.spawn(["gnome-shell-extension-prefs", "time_tracker_jsnjack@gmail.com"]);
+    return 0;
+}
 
 function on_reset() {
     start_time = new Date();
