@@ -70,7 +70,14 @@ function _restart() {
     if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('modify', _("Modify"));
         notification.addButton('restart', _("Restart"));
-        get_button(notification, 'restart').add_style_class_name('button-restart');
+        restart_button = get_button(notification, 'restart');
+        restart_button.set_child(icon_restart);
+        restart_button.add_style_class_name('system-menu-action button-restart');
+        restart_button.remove_style_class_name('notification-button');
+        modify_button = get_button(notification, 'modify');
+        modify_button.set_child(icon_modify);
+        modify_button.add_style_class_name('system-menu-action');
+        modify_button.remove_style_class_name('notification-button');
 
         notification.connect('action-invoked', function (action, action_id) {
             if (action_id === "restart") {
@@ -148,4 +155,3 @@ function disable() {
     button.destroy();
     Mainloop.source_remove(timeout);
 }
-
