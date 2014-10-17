@@ -58,43 +58,47 @@ function _refresh() {
 function _restart() {
     // Restart timer. Set new value for start_time
     var source = new MessageTray.SystemNotificationSource(),
-        message_body, message_title, notification, restart_button, modify_button, icon_modify,
-        icon_restart;
+        message_body, message_title, notification, restart_button, preferences_button, icon_preferences,
+        icon_restart, preferences_button_name, restart_button_name;
+
+    preferences_button_name = _("Preferences");
+    restart_button_name = _("Restart");
+
     Main.messageTray.add(source);
     message_title = _("Current start time:") + ' ' + start_time.toLocaleString();
     message_body = _("Confirm to restart timer");
     notification = new MessageTray.Notification(source, message_body, message_title);
 
-    icon_modify = new St.Icon({icon_name: 'preferences-system-symbolic', icon_size: 16});
+    icon_preferences = new St.Icon({icon_name: 'preferences-system-symbolic', icon_size: 16});
     icon_restart = new St.Icon({icon_name: 'view-refresh-symbolic', icon_size: 16});
     if (shell_version[0] === "3" && shell_version[1] === "10") {
-        notification.addButton('modify', _("Modify"));
-        notification.addButton('restart', _("Restart"));
+        notification.addButton('preferences', preferences_button_name);
+        notification.addButton('restart', restart_button_name);
         restart_button = get_button(notification, 'restart');
         restart_button.set_child(icon_restart);
         restart_button.add_style_class_name('system-menu-action button-restart');
         restart_button.remove_style_class_name('notification-button');
-        modify_button = get_button(notification, 'modify');
-        modify_button.set_child(icon_modify);
-        modify_button.add_style_class_name('system-menu-action');
-        modify_button.remove_style_class_name('notification-button');
+        preferences_button = get_button(notification, 'preferences');
+        preferences_button.set_child(icon_preferences);
+        preferences_button.add_style_class_name('system-menu-action');
+        preferences_button.remove_style_class_name('notification-button');
 
         notification.connect('action-invoked', function (action, action_id) {
             if (action_id === "restart") {
                 on_reset();
-            } else  if (action_id === "modify") {
-                on_modify();
+            } else  if (action_id === "preferences") {
+                on_preferences();
             }
         });
     } else {
         // For GNOME Shell 3.12 and newer
         restart_button = new St.Button({style_class: 'system-menu-action button-restart'});
-        restart_button.set_label(_("Restart"));
+        restart_button.set_label(restart_button_name);
         restart_button.set_child(icon_restart);
-        modify_button = new St.Button({style_class: 'system-menu-action'});
-        modify_button.set_label(_("Modify"));
-        modify_button.set_child(icon_modify);
-        notification.addButton(modify_button, on_modify);
+        preferences_button = new St.Button({style_class: 'system-menu-action'});
+        preferences_button.set_label(preferences_button_name);
+        preferences_button.set_child(icon_preferences);
+        notification.addButton(preferences_button, on_preferences);
         notification.addButton(restart_button, on_reset);
     }
     notification.setTransient(true);
@@ -112,7 +116,7 @@ function get_button(parent, action_id) {
 }
 
 
-function on_modify() {
+function on_preferences() {
     // Show GNOME Shell preferences
     Util.spawn(["gnome-shell-extension-prefs", "time_tracker_jsnjack@gmail.com"]);
     return 0;
