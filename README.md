@@ -1,6 +1,7 @@
 time-tracker
 ============
 ![ScreenShot](https://raw.githubusercontent.com/e-shulitsky/time-tracker/master/screenshot.png)
+![ScreenShot](https://raw.githubusercontent.com/e-shulitsky/time-tracker/master/preferences.png)
 
 ### About
 GNOME Shell extension for time tracking
