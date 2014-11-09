@@ -1,10 +1,9 @@
 /*globals imports*/
-/*jslint nomen: true */
+/*jslint nomen: true, moz: true */
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 const Gtk = imports.gi.Gtk;
-const GObject = imports.gi.GObject;
 
 const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
