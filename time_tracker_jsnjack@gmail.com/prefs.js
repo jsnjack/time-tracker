@@ -18,14 +18,10 @@ function init() {
 }
 
 
-function adjust_start_time(value, type) {
+function adjust_start_time(hours, mins) {
     // Replace old start-time date with the new one
     var change, start_time_obj, new_start_time_obj;
-    if (type === "hours") {
-        change = value * 60 * 60 * 1000;
-    } else if (type === "mins") {
-        change = value * 60 * 1000;
-    }
+    change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
     start_time_obj = new Date(start_time);
     new_start_time_obj = new Date(start_time_obj.getTime() + change);
     settings.set_string('start-time', new_start_time_obj.toString());
@@ -80,11 +76,11 @@ function buildPrefsWidget() {
     seconds_switch.connect("notify::active", function (state) {
         settings.set_boolean('show-seconds', state.active);
     });
-    hours_spin.connect("value-changed", function (spin_button) {
-        adjust_start_time(spin_button.get_value(), "hours");
+    hours_spin.connect("value-changed", function () {
+        adjust_start_time(hours_spin.get_value(), mins_spin.get_value());
     });
-    mins_spin.connect("value-changed", function (spin_button) {
-        adjust_start_time(spin_button.get_value(), "mins");
+    mins_spin.connect("value-changed", function () {
+        adjust_start_time(hours_spin.get_value(), mins_spin.get_value());
     });
 
 
