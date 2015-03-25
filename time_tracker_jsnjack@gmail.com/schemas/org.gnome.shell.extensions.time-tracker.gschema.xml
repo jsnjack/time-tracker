@@ -6,6 +6,21 @@
       <summary>Start time</summary>
       <description>Used to show difference with current time</description>
     </key>
+    <key name="pause-start-time" type="s">
+      <default>''</default>
+      <summary>Pause start time</summary>
+      <description>Used to store pause start time</description>
+    </key>
+    <key name="pause-duration" type="i">
+      <default>0</default>
+      <summary>Pause duration</summary>
+      <description>Used to store pause duration</description>
+    </key>
+    <key name="paused" type="b">
+      <default>false</default>
+      <summary>Pause state indicator</summary>
+      <description>Shows if extension is in paused state</description>
+    </key>
     <key name="show-seconds" type="b">
       <default>false</default>
       <summary>Show seconds</summary>

@@ -1,6 +1,6 @@
-/*globals imports */
-/*jslint nomen: true */
-
+/* jshint unused: false */
+/* exported init, enable, disable*/
+/* jshint ignore:start */
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
@@ -16,7 +16,8 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
 const Gettext = imports.gettext.domain('time-tracker');
-const _ = Gettext.gettext;
+const _ = Gettext.gettext
+/* jshint ignore:end */
 
 var start_time, button, start_time_string, settings, timeout;
 
@@ -34,8 +35,12 @@ function _refresh() {
         start_time = new Date(start_time_string);
         settings.set_boolean("update-start-time", false);
     }
+    // If in pause, than show the difference between start_time and pause-start-time
+    if (settings.get_boolean("paused")) {
+        current_time = new Date(settings.get_string("pause-start-time"));
+    }
     // Get difference between two times in secs
-    difference = Math.round((current_time - start_time) / 1000);
+    difference = Math.round((current_time - start_time - settings.get_int("pause-duration")) / 1000);
     hours = parseInt(difference / 3600, 10);
     if (hours !== 0) {
         difference = difference - hours * 3600;
@@ -58,11 +63,13 @@ function _refresh() {
 function _restart() {
     // Restart timer. Set new value for start_time
     var source = new MessageTray.SystemNotificationSource(),
-        message_body, message_title, notification, restart_button, preferences_button, icon_preferences,
-        icon_restart, preferences_button_name, restart_button_name;
+        message_body, message_title, notification, restart_button, preferences_button,
+        icon_preferences, icon_restart, preferences_button_name, restart_button_name,
+        icon_pause, icon_play, toggle_button_name, toggle_button;
 
     preferences_button_name = _("Preferences");
     restart_button_name = _("Restart");
+    toggle_button_name = _("Pause");
 
     Main.messageTray.add(source);
     message_title = _("Current start time:") + ' ' + start_time.toLocaleString();
@@ -71,8 +78,11 @@ function _restart() {
 
     icon_preferences = new St.Icon({icon_name: 'preferences-system-symbolic', icon_size: 16});
     icon_restart = new St.Icon({icon_name: 'view-refresh-symbolic', icon_size: 16});
+    icon_pause = new St.Icon({icon_name: 'media-playback-pause-symbolic', icon_size: 16});
+    icon_play = new St.Icon({icon_name: 'media-playback-start-symbolic', icon_size: 16});
     if (shell_version[0] === "3" && shell_version[1] === "10") {
         notification.addButton('preferences', preferences_button_name);
+        notification.addButton('toggle', toggle_button_name);
         notification.addButton('restart', restart_button_name);
         restart_button = get_button(notification, 'restart');
         restart_button.set_child(icon_restart);
@@ -82,6 +92,14 @@ function _restart() {
         preferences_button.set_child(icon_preferences);
         preferences_button.add_style_class_name('system-menu-action');
         preferences_button.remove_style_class_name('notification-button');
+        toggle_button = get_button(notification, 'toggle');
+        if (settings.get_boolean("paused")) {
+            toggle_button.set_child(icon_play);
+        } else {
+            toggle_button.set_child(icon_pause);
+        }
+        toggle_button.add_style_class_name('system-menu-action');
+        toggle_button.remove_style_class_name('notification-button');
 
         notification.connect('action-invoked', function (action, action_id) {
             if (action_id === "restart") {
@@ -95,10 +113,21 @@ function _restart() {
         restart_button = new St.Button({style_class: 'system-menu-action button-restart'});
         restart_button.set_label(restart_button_name);
         restart_button.set_child(icon_restart);
+
         preferences_button = new St.Button({style_class: 'system-menu-action'});
         preferences_button.set_label(preferences_button_name);
         preferences_button.set_child(icon_preferences);
+
+        toggle_button = new St.Button({style_class: 'system-menu-action'});
+        toggle_button.set_label(toggle_button_name);
+        if (settings.get_boolean("paused")) {
+            toggle_button.set_child(icon_play);
+        } else {
+            toggle_button.set_child(icon_pause);
+        }
+
         notification.addButton(preferences_button, on_preferences);
+        notification.addButton(toggle_button, on_toggle);
         notification.addButton(restart_button, on_reset);
     }
     notification.setTransient(true);
@@ -125,6 +154,26 @@ function on_preferences() {
 function on_reset() {
     start_time = new Date();
     settings.set_string('start-time', start_time.toString());
+    settings.set_int('pause-duration', 0);
+    settings.set_boolean('paused', false);
+}
+
+function on_toggle() {
+    // Handle pause button
+    var state = settings.get_boolean("paused"),
+        current_time, pause_start_time;
+    if (!state) {
+        // Pause timer
+        current_time = new Date();
+        settings.set_string('pause-start-time', current_time.toString());
+        settings.set_boolean("paused", true);
+    } else {
+        // Resume timer
+        current_time = new Date();
+        pause_start_time = new Date(settings.get_string('pause-start-time'));
+        settings.set_int('pause-duration', settings.get_int('pause-duration') + (current_time - pause_start_time));
+        settings.set_boolean("paused", false);
+    }
 }
 
 
