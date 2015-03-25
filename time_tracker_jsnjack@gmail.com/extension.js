@@ -167,12 +167,16 @@ function on_toggle() {
         current_time = new Date();
         settings.set_string('pause-start-time', current_time.toString());
         settings.set_boolean("paused", true);
+        button.add_style_class_name("button-paused-style");
+        button.remove_style_class_name("button-style");
     } else {
         // Resume timer
         current_time = new Date();
         pause_start_time = new Date(settings.get_string('pause-start-time'));
         settings.set_int('pause-duration', settings.get_int('pause-duration') + (current_time - pause_start_time));
         settings.set_boolean("paused", false);
+        button.add_style_class_name("button-style");
+        button.remove_style_class_name("button-paused-style");
     }
 }
 
@@ -183,8 +187,13 @@ function init() {
 
 
 function enable() {
-    button = new St.Button({style_class: 'button-style'});
+    button = new St.Button();
     settings = Convenience.getSettings();
+    if (settings.get_boolean("paused")) {
+        button.add_style_class_name("button-paused-style");
+    } else {
+        button.add_style_class_name("button-style");
+    }
     // Get start_time from settings
     start_time_string = settings.get_string('start-time');
     start_time = new Date(start_time_string);
