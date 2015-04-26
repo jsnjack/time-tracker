@@ -57,7 +57,6 @@ function _refresh() {
     button.set_label(timer);
 }
 
-
 function _restart() {
     // Restart timer. Set new value for start_time
     var preferences_button_name = _("Preferences"),
@@ -80,17 +79,6 @@ function _restart() {
     Main.messageTray.add(source);
     source.notify(notification);
 }
-
-
-function get_button(parent, action_id) {
-    // Get button by action id
-    var button;
-    button = parent._buttonBox.get_children().filter(function (b) {
-                return b._actionId === action_id;
-            })[0];
-    return button;
-}
-
 
 function on_preferences() {
     // Show GNOME Shell preferences
@@ -127,11 +115,9 @@ function on_toggle() {
     }
 }
 
-
 function init() {
     Convenience.initTranslations("time-tracker");
 }
-
 
 function enable() {
     button = new St.Button();
@@ -158,7 +144,6 @@ function enable() {
 
     Main.panel._rightBox.insert_child_at_index(button, 0);
 }
-
 
 function disable() {
     button.destroy();
