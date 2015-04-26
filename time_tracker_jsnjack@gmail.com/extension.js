@@ -19,8 +19,50 @@ const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext
 /* jshint ignore:end */
 
-var start_time, button, start_time_string, settings, timeout;
+var start_time, button, start_time_string, settings, timeout,
+    preferences_button_name = _("Preferences"),
+    restart_button_name = _("Restart"),
+    toggle_button_name = _("Pause/Resume");
 
+
+
+const TTNotificationBanner = new Lang.Class({
+    Name: 'TTNotificationBanner',
+    Extends: MessageTray.NotificationBanner,
+
+    addAction: function(label, callback) {
+        // Style buttons
+        var extra_style = "";
+        if (label === restart_button_name) {
+            extra_style = " button-restart";
+        } else if (label === toggle_button_name) {
+            if (settings.get_boolean("paused")) {
+                label = _("Resume");
+            } else {
+                label = _("Pause");
+            }
+        }
+        let button = new St.Button({ style_class: 'notification-button' + extra_style,
+                                     label: label,
+                                     x_expand: true,
+                                     can_focus: true });
+
+        return this.addButton(button, callback);
+    },
+});
+
+const TTSource = new Lang.Class({
+    Name: "TTSource",
+    Extends: MessageTray.Source,
+
+    _init: function() {
+        this.parent(_("Time tracker"), "preferences-system-time-symbolic");
+    },
+
+    createBanner: function(notification) {
+        return new TTNotificationBanner(notification);
+    },
+});
 
 function _refresh() {
     // Get difference between start time and current time
@@ -59,12 +101,9 @@ function _refresh() {
 
 function _restart() {
     // Restart timer. Set new value for start_time
-    var preferences_button_name = _("Preferences"),
-        restart_button_name = _("Restart"),
-        toggle_button_name = _("Pause/Resume"),
-        message_body = start_time.toLocaleString(),
+    var message_body = start_time.toLocaleString(),
         message_title = _("Timer was started at"),
-        source = new MessageTray.Source("Time tracker", "preferences-system-time-symbolic"),
+        source = new TTSource(),
         notification = new MessageTray.Notification(source, message_title, message_body);
 
 
