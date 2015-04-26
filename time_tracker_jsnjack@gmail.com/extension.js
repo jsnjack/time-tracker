@@ -21,7 +21,9 @@ const _ = Gettext.gettext
 
 var start_time, button, start_time_string, settings, timeout;
 
-var shell_version = ShellConfig.PACKAGE_VERSION.split(".");
+var shell_version = ShellConfig.PACKAGE_VERSION.split("."),
+    shell_version_main = parseInt(shell_version[0], 10),
+    shell_version_minor = parseInt(shell_version[1], 10);
 
 
 function _refresh() {
@@ -80,7 +82,7 @@ function _restart() {
     icon_restart = new St.Icon({icon_name: 'view-refresh-symbolic', icon_size: 16});
     icon_pause = new St.Icon({icon_name: 'media-playback-pause-symbolic', icon_size: 16});
     icon_play = new St.Icon({icon_name: 'media-playback-start-symbolic', icon_size: 16});
-    if (shell_version[0] === "3" && shell_version[1] === "10") {
+    if (shell_version_main === 3 && shell_version_minor === 10) {
         notification.addButton('preferences', preferences_button_name);
         notification.addButton('toggle', toggle_button_name);
         notification.addButton('restart', restart_button_name);
@@ -108,8 +110,7 @@ function _restart() {
                 on_preferences();
             }
         });
-    } else {
-        // For GNOME Shell 3.12 and newer
+    } else if (shell_version_main == 3 && shell_version_minor in [12, 14]){
         restart_button = new St.Button({style_class: 'system-menu-action button-restart'});
         restart_button.set_label(restart_button_name);
         restart_button.set_child(icon_restart);
@@ -129,6 +130,11 @@ function _restart() {
         notification.addButton(preferences_button, on_preferences);
         notification.addButton(toggle_button, on_toggle);
         notification.addButton(restart_button, on_reset);
+    } else {
+        // For GNOME shell 3.16
+        notification.addAction(preferences_button_name, on_preferences);
+        notification.addAction(toggle_button_name, on_toggle);
+        notification.addAction(restart_button_name, on_reset);
     }
     notification.setTransient(true);
     source.notify(notification);
