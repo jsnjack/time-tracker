@@ -130,6 +130,8 @@ function on_reset() {
     settings.set_string('start-time', start_time.toString());
     settings.set_int('pause-duration', 0);
     settings.set_boolean('paused', false);
+    button.add_style_class_name("button-style");
+    button.remove_style_class_name("button-paused-style");
 }
 
 function on_toggle() {
