@@ -21,10 +21,6 @@ const _ = Gettext.gettext
 
 var start_time, button, start_time_string, settings, timeout;
 
-var shell_version = ShellConfig.PACKAGE_VERSION.split("."),
-    shell_version_main = parseInt(shell_version[0], 10),
-    shell_version_minor = parseInt(shell_version[1], 10);
-
 
 function _refresh() {
     // Get difference between start time and current time
@@ -64,79 +60,24 @@ function _refresh() {
 
 function _restart() {
     // Restart timer. Set new value for start_time
-    var source = new MessageTray.Source("Time tracker", "preferences-system-time-symbolic"),
-        message_body, message_title, notification, restart_button, preferences_button,
-        icon_preferences, icon_restart, preferences_button_name, restart_button_name,
-        icon_pause, icon_play, toggle_button_name, toggle_button;
+    var preferences_button_name = _("Preferences"),
+        restart_button_name = _("Restart"),
+        toggle_button_name = _("Pause/Resume"),
+        message_body = start_time.toLocaleString(),
+        message_title = _("Timer was started at"),
+        source = new MessageTray.Source("Time tracker", "preferences-system-time-symbolic"),
+        notification = new MessageTray.Notification(source, message_title, message_body);
 
-    preferences_button_name = _("Preferences");
-    restart_button_name = _("Restart");
-    toggle_button_name = _("Pause");
+
+    // Add buttons
+    notification.addAction(preferences_button_name, on_preferences);
+    notification.addAction(toggle_button_name, on_toggle);
+    notification.addAction(restart_button_name, on_reset);
+
+    // Notification disapears from tray after it was showed
+    notification.setTransient(true);
 
     Main.messageTray.add(source);
-    message_title = _("Current start time:") + ' ' + start_time.toLocaleString();
-    message_body = _("Confirm to restart timer");
-    notification = new MessageTray.Notification(source, message_body, message_title);
-
-    icon_preferences = new St.Icon({icon_name: 'preferences-system-symbolic', icon_size: 16});
-    icon_restart = new St.Icon({icon_name: 'view-refresh-symbolic', icon_size: 16});
-    icon_pause = new St.Icon({icon_name: 'media-playback-pause-symbolic', icon_size: 16});
-    icon_play = new St.Icon({icon_name: 'media-playback-start-symbolic', icon_size: 16});
-    if (shell_version_main === 3 && shell_version_minor === 10) {
-        notification.addButton('preferences', preferences_button_name);
-        notification.addButton('toggle', toggle_button_name);
-        notification.addButton('restart', restart_button_name);
-        restart_button = get_button(notification, 'restart');
-        restart_button.set_child(icon_restart);
-        restart_button.add_style_class_name('system-menu-action button-restart');
-        restart_button.remove_style_class_name('notification-button');
-        preferences_button = get_button(notification, 'preferences');
-        preferences_button.set_child(icon_preferences);
-        preferences_button.add_style_class_name('system-menu-action');
-        preferences_button.remove_style_class_name('notification-button');
-        toggle_button = get_button(notification, 'toggle');
-        if (settings.get_boolean("paused")) {
-            toggle_button.set_child(icon_play);
-        } else {
-            toggle_button.set_child(icon_pause);
-        }
-        toggle_button.add_style_class_name('system-menu-action');
-        toggle_button.remove_style_class_name('notification-button');
-
-        notification.connect('action-invoked', function (action, action_id) {
-            if (action_id === "restart") {
-                on_reset();
-            } else  if (action_id === "preferences") {
-                on_preferences();
-            }
-        });
-    } else if (shell_version_main == 3 && shell_version_minor in [12, 14]){
-        restart_button = new St.Button({style_class: 'system-menu-action button-restart'});
-        restart_button.set_label(restart_button_name);
-        restart_button.set_child(icon_restart);
-
-        preferences_button = new St.Button({style_class: 'system-menu-action'});
-        preferences_button.set_label(preferences_button_name);
-        preferences_button.set_child(icon_preferences);
-
-        toggle_button = new St.Button({style_class: 'system-menu-action'});
-        toggle_button.set_label(toggle_button_name);
-        if (settings.get_boolean("paused")) {
-            toggle_button.set_child(icon_play);
-        } else {
-            toggle_button.set_child(icon_pause);
-        }
-
-        notification.addButton(preferences_button, on_preferences);
-        notification.addButton(toggle_button, on_toggle);
-        notification.addButton(restart_button, on_reset);
-    } else {
-        // For GNOME shell 3.16
-        notification.addAction(preferences_button_name, on_preferences);
-        notification.addAction(toggle_button_name, on_toggle);
-        notification.addAction(restart_button_name, on_reset);
-    }
-    notification.setTransient(true);
     source.notify(notification);
 }
 
