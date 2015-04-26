@@ -64,7 +64,7 @@ function _refresh() {
 
 function _restart() {
     // Restart timer. Set new value for start_time
-    var source = new MessageTray.SystemNotificationSource(),
+    var source = new MessageTray.Source("Time tracker", "preferences-system-time-symbolic"),
         message_body, message_title, notification, restart_button, preferences_button,
         icon_preferences, icon_restart, preferences_button_name, restart_button_name,
         icon_pause, icon_play, toggle_button_name, toggle_button;
