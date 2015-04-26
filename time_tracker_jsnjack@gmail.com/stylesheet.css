@@ -9,3 +9,11 @@
 .button-restart:hover {
     background-color: #AA4646;
 }
+
+.button-pause:hover {
+    background-color: #215D9C;
+}
+
+.button-resume:hover {
+    background-color: #6CAD2B;
+}

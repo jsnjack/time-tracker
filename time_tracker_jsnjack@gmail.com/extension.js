@@ -38,8 +38,10 @@ const TTNotificationBanner = new Lang.Class({
         } else if (label === toggle_button_name) {
             if (settings.get_boolean("paused")) {
                 label = _("Resume");
+                 extra_style = " button-resume";
             } else {
                 label = _("Pause");
+                extra_style = " button-pause";
             }
         }
         let button = new St.Button({ style_class: 'notification-button' + extra_style,
