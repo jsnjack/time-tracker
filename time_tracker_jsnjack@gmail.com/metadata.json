@@ -4,5 +4,5 @@
     "name": "Time Tracker",
     "description": "Helps track time",
     "settings-schema": "org.gnome.shell.extensions.time-tracker",
-    "url": "https://github.com/e-shulitsky/time-tracker/"
+    "url": "https://github.com/jsnjack/time-tracker/"
 }
