@@ -1,11 +1,3 @@
-.button-style {
-    color: #C0C0C0;
-}
-
-.button-paused-style {
-    color: #215D9C;
-}
-
 .button-restart:hover {
     background-color: #AA4646;
 }

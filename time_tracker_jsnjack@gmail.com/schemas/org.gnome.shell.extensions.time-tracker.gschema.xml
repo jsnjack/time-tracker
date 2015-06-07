@@ -31,5 +31,20 @@
       <summary>Update start time</summary>
       <description>Shows if start-time needs update</description>
     </key>
+    <key name="update-indicator-style" type="b">
+      <default>false</default>
+      <summary>Update indicator style</summary>
+      <description>Updates indicator style if it was changed in settings</description>
+    </key>
+    <key name="indicator-color" type="s">
+      <default>'rgb(192, 192, 192)'</default>
+      <summary>Indicator color</summary>
+      <description>Color of the timer numbers</description>
+    </key>
+    <key name="indicator-paused-color" type="s">
+      <default>'rgb(33, 93, 156)'</default>
+      <summary>Paused indicator color</summary>
+      <description>Color of the numbers in paused state</description>
+    </key>
   </schema>
 </schemalist>

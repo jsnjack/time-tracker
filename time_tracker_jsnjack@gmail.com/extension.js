@@ -1,6 +1,4 @@
-/* jshint unused: false */
-/* exported init, enable, disable*/
-/* jshint ignore:start */
+/* jshint moz: true */
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
@@ -16,8 +14,7 @@ const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
 
 const Gettext = imports.gettext.domain('time-tracker');
-const _ = Gettext.gettext
-/* jshint ignore:end */
+const _ = Gettext.gettext;
 
 var start_time, button, start_time_string, settings, timeout,
     preferences_button_name = _("Preferences"),
@@ -77,6 +74,11 @@ function _refresh() {
         start_time = new Date(start_time_string);
         settings.set_boolean("update-start-time", false);
     }
+    // Check if indicator style needs update:
+    if (settings.get_boolean("update-indicator-style")) {
+        update_indicator_style();
+        settings.set_boolean("update-indicator-style", false);
+    }
     // If in pause, than show the difference between start_time and pause-start-time
     if (settings.get_boolean("paused")) {
         current_time = new Date(settings.get_string("pause-start-time"));
@@ -121,6 +123,15 @@ function _restart() {
     source.notify(notification);
 }
 
+function update_indicator_style() {
+    // Updates style of the indicator
+    if (!settings.get_boolean("paused")) {
+        button.set_style("color: " + settings.get_string("indicator-color") + ";");
+    } else {
+        button.set_style("color: " + settings.get_string("indicator-paused-color") + ";");
+    }
+}
+
 function on_preferences() {
     // Show GNOME Shell preferences
     Util.spawn(["gnome-shell-extension-prefs", "time_tracker_jsnjack@gmail.com"]);
@@ -132,8 +143,7 @@ function on_reset() {
     settings.set_string('start-time', start_time.toString());
     settings.set_int('pause-duration', 0);
     settings.set_boolean('paused', false);
-    button.add_style_class_name("button-style");
-    button.remove_style_class_name("button-paused-style");
+    update_indicator_style();
 }
 
 function on_toggle() {
@@ -145,17 +155,14 @@ function on_toggle() {
         current_time = new Date();
         settings.set_string('pause-start-time', current_time.toString());
         settings.set_boolean("paused", true);
-        button.add_style_class_name("button-paused-style");
-        button.remove_style_class_name("button-style");
     } else {
         // Resume timer
         current_time = new Date();
         pause_start_time = new Date(settings.get_string('pause-start-time'));
         settings.set_int('pause-duration', settings.get_int('pause-duration') + (current_time - pause_start_time));
         settings.set_boolean("paused", false);
-        button.add_style_class_name("button-style");
-        button.remove_style_class_name("button-paused-style");
     }
+    update_indicator_style();
 }
 
 function init() {
@@ -165,11 +172,7 @@ function init() {
 function enable() {
     button = new St.Button();
     settings = Convenience.getSettings();
-    if (settings.get_boolean("paused")) {
-        button.add_style_class_name("button-paused-style");
-    } else {
-        button.add_style_class_name("button-style");
-    }
+    update_indicator_style();
     // Get start_time from settings
     start_time_string = settings.get_string('start-time');
     start_time = new Date(start_time_string);
