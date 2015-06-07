@@ -1,4 +1,5 @@
-/* jshint moz: true */
+/* globals imports */
+/* jshint undef: true, moz: true */
 const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
@@ -16,7 +17,7 @@ const Convenience = Me.imports.convenience;
 const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
 
-var start_time, button, start_time_string, settings, timeout,
+var start_time, indicator, start_time_string, settings, timeout,
     preferences_button_name = _("Preferences"),
     restart_button_name = _("Restart"),
     toggle_button_name = _("Pause/Resume");
@@ -100,7 +101,7 @@ function _refresh() {
     } else {
         timer = "%d:%02d".format(hours, mins);
     }
-    button.set_label(timer);
+    indicator.set_label(timer);
 }
 
 function _restart() {
@@ -126,9 +127,9 @@ function _restart() {
 function update_indicator_style() {
     // Updates style of the indicator
     if (!settings.get_boolean("paused")) {
-        button.set_style("color: " + settings.get_string("indicator-color") + ";");
+        indicator.set_style("color: " + settings.get_string("indicator-color") + ";");
     } else {
-        button.set_style("color: " + settings.get_string("indicator-paused-color") + ";");
+        indicator.set_style("color: " + settings.get_string("indicator-paused-color") + ";");
     }
 }
 
@@ -170,7 +171,7 @@ function init() {
 }
 
 function enable() {
-    button = new St.Button();
+    indicator = new St.Button();
     settings = Convenience.getSettings();
     update_indicator_style();
     // Get start_time from settings
@@ -181,17 +182,17 @@ function enable() {
         start_time = new Date();
         settings.set_string('start-time', start_time.toString());
     }
-    button.set_label('Time Tracker');
+    indicator.set_label('Time Tracker');
     timeout = Mainloop.timeout_add(1000, function () {
         _refresh();
         return true;
     });
-    button.connect('button-press-event', _restart);
+    indicator.connect('button-press-event', _restart);
 
-    Main.panel._rightBox.insert_child_at_index(button, 0);
+    Main.panel._rightBox.insert_child_at_index(indicator, 0);
 }
 
 function disable() {
-    button.destroy();
+    indicator.destroy();
     Mainloop.source_remove(timeout);
 }
