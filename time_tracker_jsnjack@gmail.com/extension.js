@@ -1,14 +1,9 @@
-/* globals imports */
-/* jshint undef: true, moz: true */
-const Clutter = imports.gi.Clutter;
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 const MessageTray = imports.ui.messageTray;
 const St = imports.gi.St;
-const Tweener = imports.ui.tweener;
-const ShellConfig = imports.misc.config;
 const Util = imports.misc.util;
 
 const Me = ExtensionUtils.getCurrentExtension();

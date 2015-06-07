@@ -1,0 +1,14 @@
+{
+  "moz": true,
+  "latedef": false,
+  "undef": true,
+  "unused": true,
+  "trailing": true,
+  "asi": false,
+  "shadow": false,
+  "sub": false,
+
+  "globals": {
+    "imports": false,
+  }
+}
