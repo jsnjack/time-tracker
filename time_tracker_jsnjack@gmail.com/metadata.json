@@ -1,5 +1,5 @@
 {
-    "shell-version": ["3.16"],
+    "shell-version": ["3.16", "3.18"],
     "uuid": "time_tracker_jsnjack@gmail.com",
     "name": "Time Tracker",
     "description": "Helps track time",
