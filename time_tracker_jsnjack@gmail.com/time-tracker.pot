@@ -16,20 +16,24 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
-#: extension.js:64
+#: extension.js:31
 msgid "Preferences"
 msgstr ""
 
-#: extension.js:65
+#: extension.js:33
 msgid "Restart"
 msgstr ""
 
-#: extension.js:68
-msgid "Current start time:"
+#: extension.js:37
+msgid "Resume"
 msgstr ""
 
-#: extension.js:69
-msgid "Confirm to restart timer"
+#: extension.js:40
+msgid "Pause"
+msgstr ""
+
+#: extension.js:109
+msgid "Timer was started at"
 msgstr ""
 
 #: prefs.js:40
@@ -44,14 +48,30 @@ msgstr ""
 msgid "Adjust start time"
 msgstr ""
 
-#: prefs.js:46
-msgid "Current start time: "
-msgstr ""
-
 #: prefs.js:49
 msgid "Hours"
 msgstr ""
 
 #: prefs.js:56
 msgid "Minutes"
+msgstr ""
+
+#: prefs.js:71
+msgid "Start time: "
+msgstr ""
+
+#: prefs.js:88
+msgid "Adjust pause duration"
+msgstr ""
+
+#: prefs.js:105
+msgid "Colours"
+msgstr ""
+
+#: prefs.js:111
+msgid "Normal state"
+msgstr ""
+
+#: prefs.js:117
+msgid "Paused state"
 msgstr ""
