@@ -1,0 +1,73 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Gnome Shell Extension Time tracker\n"
+"POT-Creation-Date: 2016-01-05 00:06+0300\n"
+"PO-Revision-Date: 2016-01-05 00:06+0300\n"
+"Last-Translator: DAEM Q.\n"
+"Language: fr\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: /home/eshulitsky/workspace/time-tracker/"
+"time_tracker_jsnjack@gmail.com\n"
+
+#: extension.js:31
+msgid "Preferences"
+msgstr "Préférences"
+
+#: extension.js:33
+msgid "Restart"
+msgstr "Redémarrer"
+
+#: extension.js:37
+msgid "Resume"
+msgstr "Reprendre"
+
+#: extension.js:40
+msgid "Pause"
+msgstr "Pause"
+
+#: extension.js:109
+msgid "Timer was started at"
+msgstr "Chronomètre démarré le"
+
+#: prefs.js:40
+msgid "Display"
+msgstr "Affichage barre supérieure"
+
+#: prefs.js:42
+msgid "Show seconds"
+msgstr "Afficher les secondes"
+
+#: prefs.js:45
+msgid "Adjust start time"
+msgstr "Ajuster l'heure de départ"
+
+#: prefs.js:49
+msgid "Hours"
+msgstr "Heures"
+
+#: prefs.js:56
+msgid "Minutes"
+msgstr "Minutes"
+
+#: prefs.js:71
+msgid "Start time: "
+msgstr "Démarré le : "
+
+#: prefs.js:88
+msgid "Adjust pause duration"
+msgstr "Ajuster le temps de la pause"
+
+#: prefs.js:105
+msgid "Colours"
+msgstr "Couleurs"
+
+#: prefs.js:111
+msgid "Normal state"
+msgstr "En cours"
+
+#: prefs.js:117
+msgid "Paused state"
+msgstr "En pause"
