@@ -1,77 +1,73 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
-#
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
-"Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 14:12+0300\n"
-"PO-Revision-Date: 2014-10-17 14:14+0300\n"
-"Last-Translator: \n"
-"Language-Team:  \n"
-"Language: \n"
-"MIME-Version: 1.0\n"
+"POT-Creation-Date: 2016-01-05 00:06+0300\n"
+"PO-Revision-Date: 2016-01-05 00:06+0300\n"
+"Last-Translator: DAEM Q.\n"
+"Language: fr\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: /home/eshulitsky/workspace/time-tracker/"
+"time_tracker_jsnjack@gmail.com\n"
 
 #: extension.js:31
 msgid "Preferences"
-msgstr ""
+msgstr "Préférences"
 
 #: extension.js:33
 msgid "Restart"
-msgstr ""
+msgstr "Redémarrer"
 
 #: extension.js:37
 msgid "Resume"
-msgstr ""
+msgstr "Reprendre"
 
 #: extension.js:40
 msgid "Pause"
-msgstr ""
+msgstr "Pause"
 
 #: extension.js:109
 msgid "Timer was started at"
-msgstr ""
+msgstr "Chronomètre démarré le"
 
 #: prefs.js:40
 msgid "Display"
-msgstr ""
+msgstr "Affichage barre supérieure"
 
 #: prefs.js:42
 msgid "Show seconds"
-msgstr ""
+msgstr "Afficher les secondes"
 
 #: prefs.js:45
 msgid "Adjust start time"
-msgstr ""
+msgstr "Ajuster l'heure de départ"
 
 #: prefs.js:49
 msgid "Hours"
-msgstr ""
+msgstr "Heures"
 
 #: prefs.js:56
 msgid "Minutes"
-msgstr ""
+msgstr "Minutes"
 
 #: prefs.js:71
 msgid "Start time: "
-msgstr ""
+msgstr "Démarré le : "
 
 #: prefs.js:88
 msgid "Adjust pause duration"
-msgstr ""
+msgstr "Ajuster le temps de la pause"
 
 #: prefs.js:105
 msgid "Colours"
-msgstr ""
+msgstr "Couleurs"
 
 #: prefs.js:111
 msgid "Normal state"
-msgstr ""
+msgstr "En cours"
 
 #: prefs.js:117
 msgid "Paused state"
-msgstr ""
+msgstr "En pause"

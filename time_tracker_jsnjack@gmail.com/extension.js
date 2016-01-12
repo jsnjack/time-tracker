@@ -26,7 +26,11 @@ const TTNotificationBanner = new Lang.Class({
     addAction: function(label, callback) {
         // Style buttons
         var extra_style = "";
-        if (label === restart_button_name) {
+        
+        if (label === preferences_button_name) {
+            label = _("Preferences");
+        } else if (label === restart_button_name) {
+            label = _("Restart");
             extra_style = " button-restart";
         } else if (label === toggle_button_name) {
             if (settings.get_boolean("paused")) {
