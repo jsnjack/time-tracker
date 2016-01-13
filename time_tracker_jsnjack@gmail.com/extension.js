@@ -1,3 +1,6 @@
+/* jshint moz:true, unused: false */
+/* exported init, enable, disable */
+/*globals imports */
 const ExtensionUtils = imports.misc.extensionUtils;
 const Lang = imports.lang;
 const Main = imports.ui.main;
@@ -26,25 +29,27 @@ const TTNotificationBanner = new Lang.Class({
     addAction: function(label, callback) {
         // Style buttons
         var extra_style = "";
-        
+
         if (label === preferences_button_name) {
             label = _("Preferences");
         } else if (label === restart_button_name) {
             label = _("Restart");
-            extra_style = " button-restart";
+                extra_style =" button-restart";
         } else if (label === toggle_button_name) {
             if (settings.get_boolean("paused")) {
                 label = _("Resume");
-                 extra_style = " button-resume";
+                extra_style = " button-resume";
             } else {
                 label = _("Pause");
                 extra_style = " button-pause";
             }
         }
-        let button = new St.Button({ style_class: 'notification-button' + extra_style,
-                                     label: label,
-                                     x_expand: true,
-                                     can_focus: true });
+        let button = new St.Button( {
+            style_class : 'notification-button' + extra_style,
+            label: label,
+            x_expand: true,
+            can_focus: true
+        });
 
         return this.addButton(button, callback);
     },

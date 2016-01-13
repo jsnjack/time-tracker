@@ -1,3 +1,7 @@
+/* jshint moz:true, unused: false */
+/* exported init, buildPrefsWidget */
+/* globals imports */
+
 const ExtensionUtils = imports.misc.extensionUtils;
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -67,7 +71,9 @@ function buildPrefsWidget() {
         seconds_label = new Gtk.Label({label: _("Show seconds"), margin_right: 10}),
         seconds_switch = new Gtk.Switch({active: settings.get_boolean('show-seconds')}),
 
-        adjust_time_label = new Gtk.Label({label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20}),
+        adjust_time_label = new Gtk.Label({
+            label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20
+        }),
         start_time_label = new Gtk.Label({label: _("Start time: ") + start_time.toLocaleString()}),
         adjust_time_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_left: 20}),
         hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
@@ -85,7 +91,9 @@ function buildPrefsWidget() {
                                                                        step_increment: 1}),
                                        value: 0}),
 
-        adjust_pause_label = new Gtk.Label({label: "<b>" + _("Adjust pause duration") + "</b>", use_markup: true, xalign: 0, margin_top: 20}),
+        adjust_pause_label = new Gtk.Label({
+            label: "<b>" + _("Adjust pause duration") + "</b>", use_markup: true, xalign: 0, margin_top: 20
+        }),
         adjust_pause_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_left: 20}),
         pause_hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
         pause_hours_label = new Gtk.Label({label: _("Hours"), margin_right: 10}),
