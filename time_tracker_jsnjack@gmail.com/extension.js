@@ -2,7 +2,6 @@
 /* exported init, enable, disable */
 /*globals imports */
 const ExtensionUtils = imports.misc.extensionUtils;
-const Lang = imports.lang;
 const Main = imports.ui.main;
 const Mainloop = imports.mainloop;
 const MessageTray = imports.ui.messageTray;
@@ -22,11 +21,8 @@ var start_time, indicator, start_time_string, settings, timeout,
 
 
 
-const TTNotificationBanner = new Lang.Class({
-    Name: 'TTNotificationBanner',
-    Extends: MessageTray.NotificationBanner,
-
-    addAction: function(label, callback) {
+const TTNotificationBanner = class extends MessageTray.NotificationBanner {
+    addAction(label, callback) {
         // Style buttons
         var extra_style = "";
 
@@ -51,21 +47,14 @@ const TTNotificationBanner = new Lang.Class({
         });
 
         return this.addButton(button, callback);
-    },
-});
+    }
+};
 
-const TTSource = new Lang.Class({
-    Name: "TTSource",
-    Extends: MessageTray.Source,
-
-    _init: function() {
-        this.parent(_("Time tracker"), "preferences-system-time-symbolic");
-    },
-
-    createBanner: function(notification) {
+const TTSource = class extends MessageTray.Source {
+    createBanner(notification) {
         return new TTNotificationBanner(notification);
-    },
-});
+    }
+};
 
 function _refresh() {
     // Get difference between start time and current time
@@ -111,9 +100,8 @@ function _restart() {
     // Restart timer. Set new value for start_time
     var message_body = start_time.toLocaleString(),
         message_title = _("Timer was started at"),
-        source = new TTSource(),
+        source = new TTSource(_("Time tracker"), "preferences-system-time-symbolic"),
         notification = new MessageTray.Notification(source, message_title, message_body);
-
 
     // Add buttons
     notification.addAction(preferences_button_name, on_preferences);
