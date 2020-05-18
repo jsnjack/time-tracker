@@ -7,6 +7,7 @@ const Mainloop = imports.mainloop;
 const MessageTray = imports.ui.messageTray;
 const St = imports.gi.St;
 const Util = imports.misc.util;
+const GObject = imports.gi.GObject;
 
 const Me = ExtensionUtils.getCurrentExtension();
 const Convenience = Me.imports.convenience;
@@ -20,8 +21,9 @@ var start_time, indicator, start_time_string, settings, timeout,
     toggle_button_name = _("Pause/Resume");
 
 
-
-const TTNotificationBanner = class extends MessageTray.NotificationBanner {
+var TTNotificationBanner = GObject.registerClass({
+    GTypeName: 'MyNSource'
+}, class TTNotificationBanner extends MessageTray.NotificationBanner {
     addAction(label, callback) {
         // Style buttons
         var extra_style = "";
@@ -48,13 +50,15 @@ const TTNotificationBanner = class extends MessageTray.NotificationBanner {
 
         return this.addButton(button, callback);
     }
-};
+});
 
-const TTSource = class extends MessageTray.Source {
+var TTSource = GObject.registerClass({
+    GTypeName: 'MySource'
+}, class TTSource extends MessageTray.Source {
     createBanner(notification) {
         return new TTNotificationBanner(notification);
     }
-};
+});
 
 function _refresh() {
     // Get difference between start time and current time
