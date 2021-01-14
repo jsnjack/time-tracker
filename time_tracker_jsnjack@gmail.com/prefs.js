@@ -39,7 +39,7 @@ function adjust_start_time(hours, mins) {
 function adjust_pause(hours, mins) {
     // Update pause-duration
     var change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
-    settings.set_int('pause-duration', change);
+    settings.set_int('pause-duration', settings.get_int('pause-duration') + change);
     // Mark time for update
     settings.set_boolean("update-start-time", true);
 }
