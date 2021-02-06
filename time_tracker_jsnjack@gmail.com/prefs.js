@@ -11,7 +11,7 @@ const Gdk = imports.gi.Gdk;
 const Gettext = imports.gettext.domain('time-tracker');
 const _ = Gettext.gettext;
 
-var settings, start_time, normal_color, paused_color;
+var settings, start_time, normal_color, paused_color, initial_pause;
 
 
 function init() {
@@ -22,6 +22,7 @@ function init() {
     normal_color.parse(settings.get_string('indicator-color'));
     paused_color = new Gdk.RGBA();
     paused_color.parse(settings.get_string('indicator-paused-color'));
+    initial_pause = settings.get_int('pause-duration');
 }
 
 
@@ -39,7 +40,7 @@ function adjust_start_time(hours, mins) {
 function adjust_pause(hours, mins) {
     // Update pause-duration
     var change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
-    settings.set_int('pause-duration', settings.get_int('pause-duration') + change);
+    settings.set_int('pause-duration', initial_pause + change);
     // Mark time for update
     settings.set_boolean("update-start-time", true);
 }
