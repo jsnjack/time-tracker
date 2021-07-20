@@ -116,7 +116,7 @@ function _restart() {
     notification.setTransient(true);
 
     Main.messageTray.add(source);
-    source.notify(notification);
+    source.showNotification(notification);
 }
 
 function update_indicator_style() {
