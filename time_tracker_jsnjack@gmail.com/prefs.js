@@ -64,28 +64,31 @@ function save_color_change(color, key) {
 function buildPrefsWidget() {
     var widget = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
-            border_width: 10
-            }),
+            margin_top: 10,
+            margin_bottom: 10,
+            margin_start: 10,
+            margin_end: 10,
+        }),
         data = parse_pause_duration(settings.get_int('pause-duration') / 1000),
         display_label = new Gtk.Label({label: "<b>" + _("Display") + "</b>", use_markup: true, xalign: 0}),
-        display_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_left: 20}),
-        seconds_label = new Gtk.Label({label: _("Show seconds"), margin_right: 10}),
+        display_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_start: 20}),
+        seconds_label = new Gtk.Label({label: _("Show seconds"), margin_end: 10}),
         seconds_switch = new Gtk.Switch({active: settings.get_boolean('show-seconds')}),
 
         adjust_time_label = new Gtk.Label({
             label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20
         }),
         start_time_label = new Gtk.Label({label: _("Start time: ") + start_time.toLocaleString()}),
-        adjust_time_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_left: 20}),
+        adjust_time_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
         hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-        hours_label = new Gtk.Label({label: _("Hours"), margin_right: 10}),
+        hours_label = new Gtk.Label({label: _("Hours"), margin_end: 10}),
         hours_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: 0,
                                                                         lower: -999,
                                                                         upper: 999,
                                                                         step_increment: 1}),
                                         value: 0}),
         mins_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-        mins_label = new Gtk.Label({label: _("Minutes"), margin_right: 10}),
+        mins_label = new Gtk.Label({label: _("Minutes"), margin_end: 10}),
         mins_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: 0,
                                                                        lower: -60,
                                                                        upper: 60,
@@ -95,16 +98,16 @@ function buildPrefsWidget() {
         adjust_pause_label = new Gtk.Label({
             label: "<b>" + _("Adjust pause duration") + "</b>", use_markup: true, xalign: 0, margin_top: 20
         }),
-        adjust_pause_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_left: 20}),
+        adjust_pause_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
         pause_hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-        pause_hours_label = new Gtk.Label({label: _("Hours"), margin_right: 10}),
+        pause_hours_label = new Gtk.Label({label: _("Hours"), margin_end: 10}),
         pause_hours_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: data.hours,
                                                                         lower: -999,
                                                                         upper: 999,
                                                                         step_increment: 1}),
                                         value: 0}),
         pause_mins_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-        pause_mins_label = new Gtk.Label({label: _("Minutes"), margin_right: 10}),
+        pause_mins_label = new Gtk.Label({label: _("Minutes"), margin_end: 10}),
         pause_mins_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: data.mins,
                                                                        lower: -60,
                                                                        upper: 60,
@@ -112,54 +115,54 @@ function buildPrefsWidget() {
                                        value: 0}),
 
         color_label = new Gtk.Label({label: "<b>" + _("Colours") + "</b>", use_markup: true, xalign: 0}),
-        color_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_left: 20}),
+        color_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
         indicator_color = new Gtk.ColorButton({
             title: _("Normal state"),
             rgba: normal_color
         }),
-        indicator_color_label = new Gtk.Label({label: _("Normal state"), margin_right: 10}),
+        indicator_color_label = new Gtk.Label({label: _("Normal state"), margin_end: 10}),
         indicator_color_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
         indicator_paused_color = new Gtk.ColorButton({
             title: _("Paused state"),
             rgba: paused_color
         }),
-        indicator_paused_color_label = new Gtk.Label({label: _("Paused state"), margin_right: 10}),
+        indicator_paused_color_label = new Gtk.Label({label: _("Paused state"), margin_end: 10}),
         indicator_paused_color_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL});
 
-    display_box.pack_start(seconds_label, false, false, 3);
-    display_box.pack_start(seconds_switch, false, false, 3);
+    display_box.append(seconds_label, false, false, 3);
+    display_box.append(seconds_switch, false, false, 3);
 
-    hours_box.pack_start(hours_label, false, false, 3);
-    hours_box.pack_start(hours_spin, false, false, 3);
-    mins_box.pack_start(mins_label, false, false, 3);
-    mins_box.pack_start(mins_spin, false, false, 3);
-    adjust_time_box.pack_start(hours_box, false, false, 3);
-    adjust_time_box.pack_start(mins_box, false, false, 3);
+    hours_box.append(hours_label, false, false, 3);
+    hours_box.append(hours_spin, false, false, 3);
+    mins_box.append(mins_label, false, false, 3);
+    mins_box.append(mins_spin, false, false, 3);
+    adjust_time_box.append(hours_box, false, false, 3);
+    adjust_time_box.append(mins_box, false, false, 3);
 
-    pause_hours_box.pack_start(pause_hours_label, false, false, 3);
-    pause_hours_box.pack_start(pause_hours_spin, false, false, 3);
-    pause_mins_box.pack_start(pause_mins_label, false, false, 3);
-    pause_mins_box.pack_start(pause_mins_spin, false, false, 3);
-    adjust_pause_box.pack_start(pause_hours_box, false, false, 3);
-    adjust_pause_box.pack_start(pause_mins_box, false, false, 3);
+    pause_hours_box.append(pause_hours_label, false, false, 3);
+    pause_hours_box.append(pause_hours_spin, false, false, 3);
+    pause_mins_box.append(pause_mins_label, false, false, 3);
+    pause_mins_box.append(pause_mins_spin, false, false, 3);
+    adjust_pause_box.append(pause_hours_box, false, false, 3);
+    adjust_pause_box.append(pause_mins_box, false, false, 3);
 
-    indicator_color_box.pack_start(indicator_color_label, false, false, 3);
-    indicator_color_box.pack_start(indicator_color, false, false, 3);
-    indicator_paused_color_box.pack_start(indicator_paused_color_label, false, false, 3);
-    indicator_paused_color_box.pack_start(indicator_paused_color, false, false, 3);
+    indicator_color_box.append(indicator_color_label, false, false, 3);
+    indicator_color_box.append(indicator_color, false, false, 3);
+    indicator_paused_color_box.append(indicator_paused_color_label, false, false, 3);
+    indicator_paused_color_box.append(indicator_paused_color, false, false, 3);
 
-    color_box.pack_start(indicator_color_box, false, false, 3);
-    color_box.pack_start(indicator_paused_color_box, false, false, 3);
+    color_box.append(indicator_color_box, false, false, 3);
+    color_box.append(indicator_paused_color_box, false, false, 3);
 
-    widget.pack_start(display_label, false, false, 3);
-    widget.pack_start(display_box, false, false, 3);
-    widget.pack_start(adjust_time_label, false, false, 3);
-    widget.pack_start(start_time_label, false, false, 3);
-    widget.pack_start(adjust_time_box, false, false, 3);
-    widget.pack_start(adjust_pause_label, false, false, 3);
-    widget.pack_start(adjust_pause_box, false, false, 3);
-    widget.pack_start(color_label, false, false, 3);
-    widget.pack_start(color_box, false, false, 3);
+    widget.append(display_label, false, false, 3);
+    widget.append(display_box, false, false, 3);
+    widget.append(adjust_time_label, false, false, 3);
+    widget.append(start_time_label, false, false, 3);
+    widget.append(adjust_time_box, false, false, 3);
+    widget.append(adjust_pause_label, false, false, 3);
+    widget.append(adjust_pause_box, false, false, 3);
+    widget.append(color_label, false, false, 3);
+    widget.append(color_box, false, false, 3);
 
     pause_hours_spin.set_sensitive(!settings.get_boolean("paused"));
     pause_mins_spin.set_sensitive(!settings.get_boolean("paused"));
@@ -187,6 +190,5 @@ function buildPrefsWidget() {
         save_color_change(indicator_paused_color.get_rgba(), "indicator-paused-color");
     });
 
-    widget.show_all();
     return widget;
 }
