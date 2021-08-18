@@ -21,6 +21,16 @@
       <summary>Pause state indicator</summary>
       <description>Shows if extension is in paused state</description>
     </key>
+    <key name="paused-by-screen-lock" type="b">
+      <default>false</default>
+      <summary>Pause state indicator</summary>
+      <description>Stores if extension was paused by screen lock</description>
+    </key>
+    <key name="pause-during-screen-lock" type="b">
+      <default>false</default>
+      <summary>Pause time tracking while screen is locked</summary>
+      <description>Set to true to stop time tracking when screen is locked</description>
+    </key>
     <key name="show-seconds" type="b">
       <default>false</default>
       <summary>Show seconds</summary>
