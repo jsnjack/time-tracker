@@ -166,7 +166,9 @@ function init() {
 }
 
 function enable() {
-    indicator = new St.Button();
+    indicator = new St.Button({
+        style_class : 'panel-button',
+    });
     settings = Convenience.getSettings();
     update_indicator_style();
     // Get start_time from settings

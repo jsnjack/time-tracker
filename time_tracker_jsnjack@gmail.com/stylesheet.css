@@ -1,3 +1,7 @@
+.panel-button {
+    padding: 0 0.65em;
+}
+
 .button-restart:hover {
     background-color: #AA4646;
 }
