@@ -98,9 +98,3 @@ msgstr ""
 #: time_tracker_jsnjack@gmail.com/prefs.js:132
 msgid "Paused state"
 msgstr ""
-
-#~ msgid "Current start time:"
-#~ msgstr "Начало отсчёта:"
-
-#~ msgid "Confirm to restart timer"
-#~ msgstr "Подтвердить сброс таймера"
