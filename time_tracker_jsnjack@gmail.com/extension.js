@@ -187,9 +187,23 @@ function enable() {
     indicator.connect('button-press-event', _restart);
 
     Main.panel._rightBox.insert_child_at_index(indicator, 0);
+
+    var paused_by_screen_lock = settings.get_boolean('paused-by-screen-lock');
+    var paused = settings.get_boolean("paused");
+    if (paused_by_screen_lock && paused) {
+        on_toggle();
+    }
+    settings.set_boolean('paused-by-screen-lock', false);
 }
 
 function disable() {
+    var pause_during_screen_lock = settings.get_boolean('pause-during-screen-lock');
+    var paused = settings.get_boolean("paused");
+    if (pause_during_screen_lock && !paused) {
+        on_toggle();
+        settings.set_boolean('paused-by-screen-lock', true);
+    }
+
     indicator.destroy();
     Mainloop.source_remove(timeout);
 }

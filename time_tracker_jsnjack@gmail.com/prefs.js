@@ -113,6 +113,9 @@ function buildPrefsWidget() {
                                                                        upper: 60,
                                                                        step_increment: 1}),
                                        value: 0}),
+        pause_on_lock_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
+        pause_on_lock_label = new Gtk.Label({label: _("Pause while screen locked"), margin_end: 10}),
+        pause_on_lock_switch = new Gtk.Switch({active: settings.get_boolean('pause-during-screen-lock')}),
 
         color_label = new Gtk.Label({label: "<b>" + _("Colours") + "</b>", use_markup: true, xalign: 0}),
         color_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
@@ -143,8 +146,11 @@ function buildPrefsWidget() {
     pause_hours_box.append(pause_hours_spin, false, false, 3);
     pause_mins_box.append(pause_mins_label, false, false, 3);
     pause_mins_box.append(pause_mins_spin, false, false, 3);
+    pause_on_lock_box.append(pause_on_lock_label, false, false, 3);
+    pause_on_lock_box.append(pause_on_lock_switch, false, false, 3);
     adjust_pause_box.append(pause_hours_box, false, false, 3);
     adjust_pause_box.append(pause_mins_box, false, false, 3);
+    adjust_pause_box.append(pause_on_lock_box, false, false, 3);
 
     indicator_color_box.append(indicator_color_label, false, false, 3);
     indicator_color_box.append(indicator_color, false, false, 3);
@@ -182,6 +188,9 @@ function buildPrefsWidget() {
     });
     pause_mins_spin.connect("value-changed", function () {
         adjust_pause(pause_hours_spin.get_value(), pause_mins_spin.get_value());
+    });
+    pause_on_lock_switch.connect("notify::active", function (state) {
+        settings.set_boolean('pause-during-screen-lock', state.active);
     });
     indicator_color.connect("color-set", function () {
         save_color_change(indicator_color.get_rgba(), "indicator-color");
