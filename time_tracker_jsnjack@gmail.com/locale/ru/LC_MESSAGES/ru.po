@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-17 14:12+0300\n"
+"POT-Creation-Date: 2021-08-19 17:09+0200\n"
 "PO-Revision-Date: 2014-10-17 14:14+0300\n"
 "Last-Translator: Yauhen Shulitski <jsnjack@gmail.com>\n"
 "Language-Team:  <jsnjack@gmail.com>\n"
@@ -21,42 +21,86 @@ msgstr ""
 "time_tracker_jsnjack@gmail.com\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: extension.js:64
+#: time_tracker_jsnjack@gmail.com/extension.js:19
 msgid "Preferences"
 msgstr "Настройки"
 
-#: extension.js:65
+#: time_tracker_jsnjack@gmail.com/extension.js:20
 msgid "Restart"
 msgstr "Сброс"
 
-#: extension.js:68
-msgid "Current start time:"
-msgstr "Начало отсчёта:"
+#: time_tracker_jsnjack@gmail.com/extension.js:21
+msgid "Pause/Resume"
+msgstr ""
 
-#: extension.js:69
-msgid "Confirm to restart timer"
-msgstr "Подтвердить сброс таймера"
+#: time_tracker_jsnjack@gmail.com/extension.js:37
+msgid "Resume"
+msgstr ""
 
-#: prefs.js:40
+#: time_tracker_jsnjack@gmail.com/extension.js:40
+msgid "Pause"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:106
+msgid "Timer was started at"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:107
+msgid "Time tracker"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:73
 msgid "Display"
 msgstr "Внешний вид"
 
-#: prefs.js:42
+#: time_tracker_jsnjack@gmail.com/prefs.js:75
 msgid "Show seconds"
 msgstr "Показывать секунды"
 
-#: prefs.js:45
+#: time_tracker_jsnjack@gmail.com/prefs.js:79
 msgid "Adjust start time"
 msgstr "Изменить начало отсчёта"
 
-#: prefs.js:46
-msgid "Current start time: "
+#: time_tracker_jsnjack@gmail.com/prefs.js:81
+#, fuzzy
+msgid "Start time: "
 msgstr "Начало отсчёта:"
 
-#: prefs.js:49
+#: time_tracker_jsnjack@gmail.com/prefs.js:84
+#: time_tracker_jsnjack@gmail.com/prefs.js:103
 msgid "Hours"
 msgstr "Часы"
 
-#: prefs.js:56
+#: time_tracker_jsnjack@gmail.com/prefs.js:91
+#: time_tracker_jsnjack@gmail.com/prefs.js:110
 msgid "Minutes"
 msgstr "Минуты"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:99
+msgid "Adjust pause duration"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:117
+msgid "Pause while screen locked"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:120
+#, fuzzy
+msgid "Colours"
+msgstr "Часы"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:123
+#: time_tracker_jsnjack@gmail.com/prefs.js:126
+msgid "Normal state"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:129
+#: time_tracker_jsnjack@gmail.com/prefs.js:132
+msgid "Paused state"
+msgstr ""
+
+#~ msgid "Current start time:"
+#~ msgstr "Начало отсчёта:"
+
+#~ msgid "Confirm to restart timer"
+#~ msgstr "Подтвердить сброс таймера"

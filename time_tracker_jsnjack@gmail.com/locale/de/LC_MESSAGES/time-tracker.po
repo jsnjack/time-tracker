@@ -7,24 +7,93 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-06-08 15:16+0200\n"
+"POT-Creation-Date: 2021-08-19 17:09+0200\n"
 "PO-Revision-Date: 2014-06-08 15:19+0100\n"
 "Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
 "Language-Team: German <jonatan_zeidler@gmx.de>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.5.4\n"
-"Language: de\n"
 
-#: extension.js:48
-msgid "Current start time:"
-msgstr "Neue Startzeit:"
+#: time_tracker_jsnjack@gmail.com/extension.js:19
+msgid "Preferences"
+msgstr ""
 
-#: extension.js:49
-msgid "Confirm to restart timer"
-msgstr "Neustart des Zeitgebers bestätigen"
-
-#: extension.js:51
+#: time_tracker_jsnjack@gmail.com/extension.js:20
 msgid "Restart"
 msgstr "Neustart"
+
+#: time_tracker_jsnjack@gmail.com/extension.js:21
+msgid "Pause/Resume"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:37
+msgid "Resume"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:40
+msgid "Pause"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:106
+msgid "Timer was started at"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/extension.js:107
+msgid "Time tracker"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:73
+msgid "Display"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:75
+msgid "Show seconds"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:79
+#, fuzzy
+msgid "Adjust start time"
+msgstr "Neue Startzeit:"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:81
+#, fuzzy
+msgid "Start time: "
+msgstr "Neue Startzeit:"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:84
+#: time_tracker_jsnjack@gmail.com/prefs.js:103
+msgid "Hours"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:91
+#: time_tracker_jsnjack@gmail.com/prefs.js:110
+msgid "Minutes"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:99
+msgid "Adjust pause duration"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:117
+msgid "Pause while screen locked"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:120
+msgid "Colours"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:123
+#: time_tracker_jsnjack@gmail.com/prefs.js:126
+msgid "Normal state"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:129
+#: time_tracker_jsnjack@gmail.com/prefs.js:132
+msgid "Paused state"
+msgstr ""
+
+#~ msgid "Confirm to restart timer"
+#~ msgstr "Neustart des Zeitgebers bestätigen"

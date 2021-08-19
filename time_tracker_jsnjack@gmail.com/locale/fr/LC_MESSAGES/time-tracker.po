@@ -1,7 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
-"POT-Creation-Date: 2016-01-05 00:06+0300\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2021-08-19 17:09+0200\n"
 "PO-Revision-Date: 2016-01-05 00:06+0300\n"
 "Last-Translator: DAEM Q.\n"
 "Language: fr\n"
@@ -12,62 +13,79 @@ msgstr ""
 "X-Poedit-Basepath: /home/eshulitsky/workspace/time-tracker/"
 "time_tracker_jsnjack@gmail.com\n"
 
-#: extension.js:31
+#: time_tracker_jsnjack@gmail.com/extension.js:19
 msgid "Preferences"
 msgstr "Préférences"
 
-#: extension.js:33
+#: time_tracker_jsnjack@gmail.com/extension.js:20
 msgid "Restart"
 msgstr "Redémarrer"
 
-#: extension.js:37
+#: time_tracker_jsnjack@gmail.com/extension.js:21
+#, fuzzy
+msgid "Pause/Resume"
+msgstr "Reprendre"
+
+#: time_tracker_jsnjack@gmail.com/extension.js:37
 msgid "Resume"
 msgstr "Reprendre"
 
-#: extension.js:40
+#: time_tracker_jsnjack@gmail.com/extension.js:40
 msgid "Pause"
 msgstr "Pause"
 
-#: extension.js:109
+#: time_tracker_jsnjack@gmail.com/extension.js:106
 msgid "Timer was started at"
 msgstr "Chronomètre démarré le"
 
-#: prefs.js:40
+#: time_tracker_jsnjack@gmail.com/extension.js:107
+msgid "Time tracker"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:73
 msgid "Display"
 msgstr "Affichage barre supérieure"
 
-#: prefs.js:42
+#: time_tracker_jsnjack@gmail.com/prefs.js:75
 msgid "Show seconds"
 msgstr "Afficher les secondes"
 
-#: prefs.js:45
+#: time_tracker_jsnjack@gmail.com/prefs.js:79
 msgid "Adjust start time"
 msgstr "Ajuster l'heure de départ"
 
-#: prefs.js:49
-msgid "Hours"
-msgstr "Heures"
-
-#: prefs.js:56
-msgid "Minutes"
-msgstr "Minutes"
-
-#: prefs.js:71
+#: time_tracker_jsnjack@gmail.com/prefs.js:81
 msgid "Start time: "
 msgstr "Démarré le : "
 
-#: prefs.js:88
+#: time_tracker_jsnjack@gmail.com/prefs.js:84
+#: time_tracker_jsnjack@gmail.com/prefs.js:103
+msgid "Hours"
+msgstr "Heures"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:91
+#: time_tracker_jsnjack@gmail.com/prefs.js:110
+msgid "Minutes"
+msgstr "Minutes"
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:99
 msgid "Adjust pause duration"
 msgstr "Ajuster le temps de la pause"
 
-#: prefs.js:105
+#: time_tracker_jsnjack@gmail.com/prefs.js:117
+msgid "Pause while screen locked"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:120
 msgid "Colours"
 msgstr "Couleurs"
 
-#: prefs.js:111
+#: time_tracker_jsnjack@gmail.com/prefs.js:123
+#: time_tracker_jsnjack@gmail.com/prefs.js:126
 msgid "Normal state"
 msgstr "En cours"
 
-#: prefs.js:117
+#: time_tracker_jsnjack@gmail.com/prefs.js:129
+#: time_tracker_jsnjack@gmail.com/prefs.js:132
 msgid "Paused state"
 msgstr "En pause"
