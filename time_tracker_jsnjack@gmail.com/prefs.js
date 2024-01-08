@@ -4,7 +4,7 @@ import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
 import Adw from 'gi://Adw';
 
-import {ExtensionPreferences, gettext as _} from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
+import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
 var settings, start_time, normal_color, paused_color, initial_pause;
 
 
@@ -62,74 +62,90 @@ export default class TimeTrackerPreferences extends ExtensionPreferences {
         page.add(group);
 
         var widget = new Gtk.Box({
-              orientation: Gtk.Orientation.VERTICAL,
-              margin_top: 10,
-              margin_bottom: 10,
-              margin_start: 10,
-              margin_end: 10,
-          }),
-          data = parse_pause_duration(settings.get_int('pause-duration') / 1000),
-          display_label = new Gtk.Label({label: "<b>" + _("Display") + "</b>", use_markup: true, xalign: 0}),
-          display_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL, margin_start: 20}),
-          seconds_label = new Gtk.Label({label: _("Show seconds"), margin_end: 10}),
-          seconds_switch = new Gtk.Switch({active: settings.get_boolean('show-seconds')}),
+            orientation: Gtk.Orientation.VERTICAL,
+            margin_top: 10,
+            margin_bottom: 10,
+            margin_start: 10,
+            margin_end: 10,
+        }),
+            data = parse_pause_duration(settings.get_int('pause-duration') / 1000),
+            display_label = new Gtk.Label({ label: "<b>" + _("Display") + "</b>", use_markup: true, xalign: 0 }),
+            display_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL, margin_start: 20 }),
+            seconds_label = new Gtk.Label({ label: _("Show seconds"), margin_end: 10 }),
+            seconds_switch = new Gtk.Switch({ active: settings.get_boolean('show-seconds') }),
 
-          adjust_time_label = new Gtk.Label({
-              label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20
-          }),
-          start_time_label = new Gtk.Label({label: _("Start time: ") + start_time.toLocaleString()}),
-          adjust_time_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
-          hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          hours_label = new Gtk.Label({label: _("Hours"), margin_end: 10}),
-          hours_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: 0,
-                  lower: -999,
-                  upper: 999,
-                  step_increment: 1}),
-              value: 0}),
-          mins_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          mins_label = new Gtk.Label({label: _("Minutes"), margin_end: 10}),
-          mins_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: 0,
-                  lower: -60,
-                  upper: 60,
-                  step_increment: 1}),
-              value: 0}),
+            adjust_time_label = new Gtk.Label({
+                label: "<b>" + _("Adjust start time") + "</b>", use_markup: true, xalign: 0, margin_top: 20
+            }),
+            start_time_label = new Gtk.Label({ label: _("Start time: ") + start_time.toLocaleString() }),
+            adjust_time_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_start: 20 }),
+            hours_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            hours_label = new Gtk.Label({ label: _("Hours"), margin_end: 10 }),
+            hours_spin = new Gtk.SpinButton({
+                adjustment: new Gtk.Adjustment({
+                    value: 0,
+                    lower: -999,
+                    upper: 999,
+                    step_increment: 1
+                }),
+                value: 0
+            }),
+            mins_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            mins_label = new Gtk.Label({ label: _("Minutes"), margin_end: 10 }),
+            mins_spin = new Gtk.SpinButton({
+                adjustment: new Gtk.Adjustment({
+                    value: 0,
+                    lower: -60,
+                    upper: 60,
+                    step_increment: 1
+                }),
+                value: 0
+            }),
 
-          adjust_pause_label = new Gtk.Label({
-              label: "<b>" + _("Adjust pause duration") + "</b>", use_markup: true, xalign: 0, margin_top: 20
-          }),
-          adjust_pause_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
-          pause_hours_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          pause_hours_label = new Gtk.Label({label: _("Hours"), margin_end: 10}),
-          pause_hours_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: data.hours,
-                  lower: -999,
-                  upper: 999,
-                  step_increment: 1}),
-              value: 0}),
-          pause_mins_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          pause_mins_label = new Gtk.Label({label: _("Minutes"), margin_end: 10}),
-          pause_mins_spin = new Gtk.SpinButton({adjustment: new Gtk.Adjustment({value: data.mins,
-                  lower: -60,
-                  upper: 60,
-                  step_increment: 1}),
-              value: 0}),
-          pause_on_lock_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          pause_on_lock_label = new Gtk.Label({label: _("Pause while screen locked"), margin_end: 10}),
-          pause_on_lock_switch = new Gtk.Switch({active: settings.get_boolean('pause-during-screen-lock')}),
+            adjust_pause_label = new Gtk.Label({
+                label: "<b>" + _("Adjust pause duration") + "</b>", use_markup: true, xalign: 0, margin_top: 20
+            }),
+            adjust_pause_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_start: 20 }),
+            pause_hours_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            pause_hours_label = new Gtk.Label({ label: _("Hours"), margin_end: 10 }),
+            pause_hours_spin = new Gtk.SpinButton({
+                adjustment: new Gtk.Adjustment({
+                    value: data.hours,
+                    lower: -999,
+                    upper: 999,
+                    step_increment: 1
+                }),
+                value: 0
+            }),
+            pause_mins_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            pause_mins_label = new Gtk.Label({ label: _("Minutes"), margin_end: 10 }),
+            pause_mins_spin = new Gtk.SpinButton({
+                adjustment: new Gtk.Adjustment({
+                    value: data.mins,
+                    lower: -60,
+                    upper: 60,
+                    step_increment: 1
+                }),
+                value: 0
+            }),
+            pause_on_lock_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            pause_on_lock_label = new Gtk.Label({ label: _("Pause while screen locked"), margin_end: 10 }),
+            pause_on_lock_switch = new Gtk.Switch({ active: settings.get_boolean('pause-during-screen-lock') }),
 
-          color_label = new Gtk.Label({label: "<b>" + _("Colours") + "</b>", use_markup: true, xalign: 0}),
-          color_box = new Gtk.Box({orientation: Gtk.Orientation.VERTICAL, margin_start: 20}),
-          indicator_color = new Gtk.ColorButton({
-              title: _("Normal state"),
-              rgba: normal_color
-          }),
-          indicator_color_label = new Gtk.Label({label: _("Normal state"), margin_end: 10}),
-          indicator_color_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL}),
-          indicator_paused_color = new Gtk.ColorButton({
-              title: _("Paused state"),
-              rgba: paused_color
-          }),
-          indicator_paused_color_label = new Gtk.Label({label: _("Paused state"), margin_end: 10}),
-          indicator_paused_color_box = new Gtk.Box({orientation: Gtk.Orientation.HORIZONTAL});
+            color_label = new Gtk.Label({ label: "<b>" + _("Colours") + "</b>", use_markup: true, xalign: 0 }),
+            color_box = new Gtk.Box({ orientation: Gtk.Orientation.VERTICAL, margin_start: 20 }),
+            indicator_color = new Gtk.ColorButton({
+                title: _("Normal state"),
+                rgba: normal_color
+            }),
+            indicator_color_label = new Gtk.Label({ label: _("Normal state"), margin_end: 10 }),
+            indicator_color_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL }),
+            indicator_paused_color = new Gtk.ColorButton({
+                title: _("Paused state"),
+                rgba: paused_color
+            }),
+            indicator_paused_color_label = new Gtk.Label({ label: _("Paused state"), margin_end: 10 }),
+            indicator_paused_color_box = new Gtk.Box({ orientation: Gtk.Orientation.HORIZONTAL });
 
         display_box.append(seconds_label, false, false, 3);
         display_box.append(seconds_switch, false, false, 3);

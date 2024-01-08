@@ -6,7 +6,7 @@ import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 import St from 'gi://St';
 import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import GObject from 'gi://GObject';
-import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
+import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
 var start_time, indicator, start_time_string, settings, timeout,
     preferences_button_name,
@@ -23,7 +23,7 @@ var TTNotificationBanner = GObject.registerClass({
         // Redefining label is required for translation
         label = _(label);
         if (label === restart_button_name) {
-            extra_style =" button-restart";
+            extra_style = " button-restart";
         } else if (label === toggle_button_name) {
             if (settings.get_boolean("paused")) {
                 label = _("Resume");
@@ -33,8 +33,8 @@ var TTNotificationBanner = GObject.registerClass({
                 extra_style = " button-pause";
             }
         }
-        let button = new St.Button( {
-            style_class : 'notification-button' + extra_style,
+        let button = new St.Button({
+            style_class: 'notification-button' + extra_style,
             label: label,
             x_expand: true,
             can_focus: true
@@ -153,14 +153,14 @@ function on_toggle() {
     update_indicator_style();
 }
 
-export default class TimeTracker extends Extension{
+export default class TimeTracker extends Extension {
     enable() {
         preferences_button_name = _("Preferences");
-          restart_button_name = _("Restart");
-          toggle_button_name = _("Pause/Resume");
+        restart_button_name = _("Restart");
+        toggle_button_name = _("Pause/Resume");
 
         indicator = new St.Button({
-            style_class : 'panel-button',
+            style_class: 'panel-button',
         });
         settings = this.getSettings();
         update_indicator_style();
