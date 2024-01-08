@@ -1,25 +1,17 @@
 /* jshint moz:true, unused: false */
 /* exported init, enable, disable */
-/*globals imports */
-const ExtensionUtils = imports.misc.extensionUtils;
-const Main = imports.ui.main;
+import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 const Mainloop = imports.mainloop;
-const MessageTray = imports.ui.messageTray;
-const St = imports.gi.St;
-const Util = imports.misc.util;
-const GObject = imports.gi.GObject;
-
-const Me = ExtensionUtils.getCurrentExtension();
-const Convenience = Me.imports.convenience;
-
-const Gettext = imports.gettext.domain('time-tracker');
-const _ = Gettext.gettext;
+import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
+import St from 'gi://St';
+import * as Util from 'resource:///org/gnome/shell/misc/util.js';
+import GObject from 'gi://GObject';
+import {Extension, gettext as _} from 'resource:///org/gnome/shell/extensions/extension.js';
 
 var start_time, indicator, start_time_string, settings, timeout,
-    preferences_button_name = _("Preferences"),
-    restart_button_name = _("Restart"),
-    toggle_button_name = _("Pause/Resume");
-
+    preferences_button_name,
+    restart_button_name,
+    toggle_button_name;
 
 var TTNotificationBanner = GObject.registerClass({
     GTypeName: 'MyNSource'
@@ -161,49 +153,51 @@ function on_toggle() {
     update_indicator_style();
 }
 
-function init() {
-    Convenience.initTranslations("time-tracker");
-}
+export default class TimeTracker extends Extension{
+    enable() {
+        preferences_button_name = _("Preferences");
+          restart_button_name = _("Restart");
+          toggle_button_name = _("Pause/Resume");
 
-function enable() {
-    indicator = new St.Button({
-        style_class : 'panel-button',
-    });
-    settings = Convenience.getSettings();
-    update_indicator_style();
-    // Get start_time from settings
-    start_time_string = settings.get_string('start-time');
-    start_time = new Date(start_time_string);
-    // If creation of Date object failed, create a new one
-    if (isNaN(start_time.getHours())) {
-        start_time = new Date();
-        settings.set_string('start-time', start_time.toString());
-    }
-    indicator.set_label('Time Tracker');
-    timeout = Mainloop.timeout_add(1000, function () {
-        _refresh();
-        return true;
-    });
-    indicator.connect('button-press-event', _restart);
+        indicator = new St.Button({
+            style_class : 'panel-button',
+        });
+        settings = this.getSettings();
+        update_indicator_style();
+        // Get start_time from settings
+        start_time_string = settings.get_string('start-time');
+        start_time = new Date(start_time_string);
+        // If creation of Date object failed, create a new one
+        if (isNaN(start_time.getHours())) {
+            start_time = new Date();
+            settings.set_string('start-time', start_time.toString());
+        }
+        indicator.set_label('Time Tracker');
+        timeout = Mainloop.timeout_add(1000, function () {
+            _refresh();
+            return true;
+        });
+        indicator.connect('button-press-event', _restart);
 
-    Main.panel._rightBox.insert_child_at_index(indicator, 0);
+        Main.panel._rightBox.insert_child_at_index(indicator, 0);
 
-    var paused_by_screen_lock = settings.get_boolean('paused-by-screen-lock');
-    var paused = settings.get_boolean("paused");
-    if (paused_by_screen_lock && paused) {
-        on_toggle();
-    }
-    settings.set_boolean('paused-by-screen-lock', false);
-}
-
-function disable() {
-    var pause_during_screen_lock = settings.get_boolean('pause-during-screen-lock');
-    var paused = settings.get_boolean("paused");
-    if (pause_during_screen_lock && !paused) {
-        on_toggle();
-        settings.set_boolean('paused-by-screen-lock', true);
+        var paused_by_screen_lock = settings.get_boolean('paused-by-screen-lock');
+        var paused = settings.get_boolean("paused");
+        if (paused_by_screen_lock && paused) {
+            on_toggle();
+        }
+        settings.set_boolean('paused-by-screen-lock', false);
     }
 
-    indicator.destroy();
-    Mainloop.source_remove(timeout);
+    disable() {
+        var pause_during_screen_lock = settings.get_boolean('pause-during-screen-lock');
+        var paused = settings.get_boolean("paused");
+        if (pause_during_screen_lock && !paused) {
+            on_toggle();
+            settings.set_boolean('paused-by-screen-lock', true);
+        }
+
+        indicator.destroy();
+        Mainloop.source_remove(timeout);
+    }
 }
