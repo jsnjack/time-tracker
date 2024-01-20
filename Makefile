@@ -25,7 +25,9 @@ time_tracker_jsnjack@gmail.com.shell-extension.zip: ./time_tracker_jsnjack@gmail
 	rm -rf build/
 	cp -R time_tracker_jsnjack@gmail.com build
 	find ./build -type f -name *.po -delete
+	find ./build -type f -name *.po~ -delete
 	find ./build -type f -name "*.pot" -delete
+	find ./build -type f -name "*.pot~" -delete
 	cd build && zip -qr time_tracker_jsnjack@gmail.com.shell-extension.zip . && mv time_tracker_jsnjack@gmail.com.shell-extension.zip ../
 	rm -rf build
 
