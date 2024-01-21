@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-01-20 17:08+0300\n"
+"POT-Creation-Date: 2024-01-21 22:30+0300\n"
 "PO-Revision-Date: 2014-10-17 14:14+0300\n"
 "Last-Translator: Yauhen Shulitski <jsnjack@gmail.com>\n"
 "Language-Team:  <jsnjack@gmail.com>\n"
@@ -21,31 +21,31 @@ msgstr ""
 "time_tracker_jsnjack@gmail.com\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:30
+#: time_tracker_jsnjack@gmail.com/extension.js:29
 msgid "Resume"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:33
+#: time_tracker_jsnjack@gmail.com/extension.js:32
 msgid "Pause"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:99
+#: time_tracker_jsnjack@gmail.com/extension.js:98
 msgid "Timer was started at"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:100
+#: time_tracker_jsnjack@gmail.com/extension.js:99
 msgid "Time tracker"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:159
+#: time_tracker_jsnjack@gmail.com/extension.js:158
 msgid "Preferences"
 msgstr "Настройки"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:160
+#: time_tracker_jsnjack@gmail.com/extension.js:159
 msgid "Restart"
 msgstr "Сброс"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:161
+#: time_tracker_jsnjack@gmail.com/extension.js:160
 msgid "Pause/Resume"
 msgstr ""
 

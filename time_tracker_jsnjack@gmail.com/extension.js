@@ -4,7 +4,6 @@ import * as Main from 'resource:///org/gnome/shell/ui/main.js';
 import GLib from 'gi://GLib';
 import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 import St from 'gi://St';
-import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import GObject from 'gi://GObject';
 import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
@@ -175,7 +174,7 @@ export default class TimeTracker extends Extension {
             settings.set_string('start-time', start_time.toString());
         }
         indicator.set_label('Time Tracker');
-        timeout = GLib.timeout_add(1000, GLib.PRIORITY_DEFAULT, function () {
+        timeout = GLib.timeout_add(1000, GLib.PRIORITY_LOW, function () {
             _refresh();
             return true;
         });
