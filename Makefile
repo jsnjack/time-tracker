@@ -34,3 +34,9 @@ time_tracker_jsnjack@gmail.com.shell-extension.zip: ./time_tracker_jsnjack@gmail
 build: update_po time_tracker_jsnjack@gmail.com/schemas/gschemas.compiled
 
 all: build time_tracker_jsnjack@gmail.com.shell-extension.zip
+
+install: time_tracker_jsnjack@gmail.com.shell-extension.zip
+	gnome-extensions install ./time_tracker_jsnjack@gmail.com.shell-extension.zip --force
+
+launch:
+	dbus-run-session -- gnome-shell --nested --wayland
