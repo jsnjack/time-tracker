@@ -5,15 +5,14 @@ import Gdk from 'gi://Gdk';
 import Adw from 'gi://Adw';
 
 import { ExtensionPreferences, gettext as _ } from 'resource:///org/gnome/Shell/Extensions/js/extensions/prefs.js';
-var settings, start_time, normal_color, paused_color, initial_pause;
+let settings, start_time, normal_color, paused_color, initial_pause;
 
 
 function adjust_start_time(hours, mins) {
     // Replace old start-time date with the new one
-    var change, start_time_obj, new_start_time_obj;
-    change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
-    start_time_obj = new Date(start_time);
-    new_start_time_obj = new Date(start_time_obj.getTime() + change);
+    const change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
+    const start_time_obj = new Date(start_time);
+    const new_start_time_obj = new Date(start_time_obj.getTime() + change);
     settings.set_string('start-time', new_start_time_obj.toString());
     // Mark time for update
     settings.set_boolean("update-start-time", true);
@@ -21,7 +20,7 @@ function adjust_start_time(hours, mins) {
 
 function adjust_pause(hours, mins) {
     // Update pause-duration
-    var change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
+    const change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
     settings.set_int('pause-duration', initial_pause + change);
     // Mark time for update
     settings.set_boolean("update-start-time", true);
@@ -29,7 +28,7 @@ function adjust_pause(hours, mins) {
 
 function parse_pause_duration(seconds) {
     // Returns amount of hours and minutes
-    var data = {};
+    const data = {};
     data.hours = parseInt(seconds / 3600, 10);
     seconds = seconds - data.hours * 3600;
     data.mins = parseInt(seconds / 60, 10);
@@ -61,7 +60,7 @@ export default class TimeTrackerPreferences extends ExtensionPreferences {
         });
         page.add(group);
 
-        var widget = new Gtk.Box({
+        const widget = new Gtk.Box({
             orientation: Gtk.Orientation.VERTICAL,
             margin_top: 10,
             margin_bottom: 10,

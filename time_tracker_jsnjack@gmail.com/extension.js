@@ -1,24 +1,24 @@
 /* jshint moz:true, unused: false */
 /* exported init, enable, disable */
 import * as Main from 'resource:///org/gnome/shell/ui/main.js';
-const Mainloop = imports.mainloop;
+import GLib from 'gi://GLib';
 import * as MessageTray from 'resource:///org/gnome/shell/ui/messageTray.js';
 import St from 'gi://St';
-import * as Util from 'resource:///org/gnome/shell/misc/util.js';
 import GObject from 'gi://GObject';
 import { Extension, gettext as _ } from 'resource:///org/gnome/shell/extensions/extension.js';
 
-var start_time, indicator, start_time_string, settings, timeout,
+let start_time, indicator, start_time_string, settings, timeout,
+    self,
     preferences_button_name,
     restart_button_name,
     toggle_button_name;
 
-var TTNotificationBanner = GObject.registerClass({
+const TTNotificationBanner = GObject.registerClass({
     GTypeName: 'MyNSource'
 }, class TTNotificationBanner extends MessageTray.NotificationBanner {
     addAction(label, callback) {
         // Style buttons
-        var extra_style = "";
+        let extra_style = "";
 
         // Redefining label is required for translation
         label = _(label);
@@ -33,7 +33,7 @@ var TTNotificationBanner = GObject.registerClass({
                 extra_style = " button-pause";
             }
         }
-        let button = new St.Button({
+        const button = new St.Button({
             style_class: 'notification-button' + extra_style,
             label: label,
             x_expand: true,
@@ -44,7 +44,7 @@ var TTNotificationBanner = GObject.registerClass({
     }
 });
 
-var TTSource = GObject.registerClass({
+const TTSource = GObject.registerClass({
     GTypeName: 'MySource'
 }, class TTSource extends MessageTray.Source {
     createBanner(notification) {
@@ -55,8 +55,8 @@ var TTSource = GObject.registerClass({
 function _refresh() {
     // Get difference between start time and current time
     // and show it
-    var current_time = new Date(),
-        difference, hours, mins, secs, timer;
+    let current_time = new Date(),
+        difference, timer;
     // Check if start_time needs update:
     if (settings.get_boolean("update-start-time")) {
         start_time_string = settings.get_string('start-time');
@@ -74,15 +74,15 @@ function _refresh() {
     }
     // Get difference between two times in secs
     difference = Math.round((current_time - start_time - settings.get_int("pause-duration")) / 1000);
-    hours = parseInt(difference / 3600, 10);
+    const hours = parseInt(difference / 3600, 10);
     if (hours !== 0) {
         difference = difference - hours * 3600;
     }
-    mins = parseInt(difference / 60, 10);
+    const mins = parseInt(difference / 60, 10);
     if (mins !== 0) {
         difference = difference - mins * 60;
     }
-    secs = difference;
+    const secs = difference;
     // Prepare timer info
     if (settings.get_boolean('show-seconds') === true) {
         timer = "%d:%02d:%02d".format(hours, mins, secs);
@@ -94,7 +94,7 @@ function _refresh() {
 
 function _restart() {
     // Restart timer. Set new value for start_time
-    var message_body = start_time.toLocaleString(),
+    const message_body = start_time.toLocaleString(),
         message_title = _("Timer was started at"),
         source = new TTSource(_("Time tracker"), "preferences-system-time-symbolic"),
         notification = new MessageTray.Notification(source, message_title, message_body);
@@ -122,7 +122,7 @@ function update_indicator_style() {
 
 function on_preferences() {
     // Show GNOME Shell preferences
-    Util.spawn(["gnome-shell-extension-prefs", "time_tracker_jsnjack@gmail.com"]);
+    self.openPreferences();
     return 0;
 }
 
@@ -136,7 +136,7 @@ function on_reset() {
 
 function on_toggle() {
     // Handle pause button
-    var state = settings.get_boolean("paused"),
+    let state = settings.get_boolean("paused"),
         current_time, pause_start_time;
     if (!state) {
         // Pause timer
@@ -163,6 +163,7 @@ export default class TimeTracker extends Extension {
             style_class: 'panel-button',
         });
         settings = this.getSettings();
+        self = this;
         update_indicator_style();
         // Get start_time from settings
         start_time_string = settings.get_string('start-time');
@@ -173,7 +174,7 @@ export default class TimeTracker extends Extension {
             settings.set_string('start-time', start_time.toString());
         }
         indicator.set_label('Time Tracker');
-        timeout = Mainloop.timeout_add(1000, function () {
+        timeout = GLib.timeout_add(1000, GLib.PRIORITY_LOW, function () {
             _refresh();
             return true;
         });
@@ -181,8 +182,8 @@ export default class TimeTracker extends Extension {
 
         Main.panel._rightBox.insert_child_at_index(indicator, 0);
 
-        var paused_by_screen_lock = settings.get_boolean('paused-by-screen-lock');
-        var paused = settings.get_boolean("paused");
+        const paused_by_screen_lock = settings.get_boolean('paused-by-screen-lock');
+        const paused = settings.get_boolean("paused");
         if (paused_by_screen_lock && paused) {
             on_toggle();
         }
@@ -190,14 +191,17 @@ export default class TimeTracker extends Extension {
     }
 
     disable() {
-        var pause_during_screen_lock = settings.get_boolean('pause-during-screen-lock');
-        var paused = settings.get_boolean("paused");
+        const pause_during_screen_lock = settings.get_boolean('pause-during-screen-lock');
+        const paused = settings.get_boolean("paused");
         if (pause_during_screen_lock && !paused) {
             on_toggle();
             settings.set_boolean('paused-by-screen-lock', true);
         }
 
         indicator.destroy();
-        Mainloop.source_remove(timeout);
+        GLib.Source.remove(timeout);
+        indicator = null;
+        settings = null;
+        self = null;
     }
 }
