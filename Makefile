@@ -40,3 +40,5 @@ install: time_tracker_jsnjack@gmail.com.shell-extension.zip
 
 launch:
 	dbus-run-session -- gnome-shell --nested --wayland
+
+run: all install launch
