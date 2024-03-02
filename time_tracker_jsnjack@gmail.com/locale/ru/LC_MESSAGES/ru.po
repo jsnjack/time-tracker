@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-02 13:15+0300\n"
+"POT-Creation-Date: 2024-03-02 19:10+0300\n"
 "PO-Revision-Date: 2014-10-17 14:14+0300\n"
 "Last-Translator: Yauhen Shulitski <jsnjack@gmail.com>\n"
 "Language-Team:  <jsnjack@gmail.com>\n"
@@ -21,20 +21,20 @@ msgstr ""
 "time_tracker_jsnjack@gmail.com\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:55
-#: time_tracker_jsnjack@gmail.com/extension.js:86
+#: time_tracker_jsnjack@gmail.com/extension.js:73
+#: time_tracker_jsnjack@gmail.com/extension.js:104
 msgid "Resume"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:59
+#: time_tracker_jsnjack@gmail.com/extension.js:77
 msgid "Restart"
 msgstr "Сброс"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:63
+#: time_tracker_jsnjack@gmail.com/extension.js:81
 msgid "Preferences"
 msgstr "Настройки"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:78
+#: time_tracker_jsnjack@gmail.com/extension.js:96
 msgid "Pause"
 msgstr ""
 
@@ -48,7 +48,7 @@ msgid "Adjust start time"
 msgstr "Изменить начало отсчёта"
 
 #: time_tracker_jsnjack@gmail.com/prefs.js:27
-#: time_tracker_jsnjack@gmail.com/prefs.js:106
+#: time_tracker_jsnjack@gmail.com/prefs.js:104
 #, fuzzy
 msgid "Start time: "
 msgstr "Начало отсчёта:"
@@ -67,35 +67,35 @@ msgstr "Минуты"
 msgid "Adjust pause duration"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:128
+#: time_tracker_jsnjack@gmail.com/prefs.js:126
 msgid "Appearance"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:135
+#: time_tracker_jsnjack@gmail.com/prefs.js:133
 msgid "Display"
 msgstr "Внешний вид"
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:139
+#: time_tracker_jsnjack@gmail.com/prefs.js:137
 msgid "Show seconds"
 msgstr "Показывать секунды"
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:150
+#: time_tracker_jsnjack@gmail.com/prefs.js:148
 #, fuzzy
 msgid "Colours"
 msgstr "Часы"
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:162
+#: time_tracker_jsnjack@gmail.com/prefs.js:160
 msgid "Normal state"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:181
+#: time_tracker_jsnjack@gmail.com/prefs.js:179
 msgid "Paused state"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:210
+#: time_tracker_jsnjack@gmail.com/prefs.js:208
 msgid "Behavior"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/prefs.js:219
+#: time_tracker_jsnjack@gmail.com/prefs.js:217
 msgid "Pause while screen locked"
 msgstr ""

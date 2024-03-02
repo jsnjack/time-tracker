@@ -2,12 +2,22 @@
 <schemalist >
   <schema id="org.gnome.shell.extensions.time-tracker" path="/org/gnome/shell/extensions/time-tracker/">
     <key name="start-time" type="s">
-      <default>'Time tracker'</default>
+      <default>''</default>
+      <summary>Start time (deprecated, remove in version 27)</summary>
+      <description>Used to show difference with current time</description>
+    </key>
+    <key name="state-start-time" type="u">
+      <default>0</default>
       <summary>Start time</summary>
       <description>Used to show difference with current time</description>
     </key>
     <key name="pause-start-time" type="s">
       <default>''</default>
+      <summary>Pause start time (deprecated, remove in version 27)</summary>
+      <description>Used to store pause start time</description>
+    </key>
+    <key name="state-pause-start-time" type="u">
+      <default>0</default>
       <summary>Pause start time</summary>
       <description>Used to store pause start time</description>
     </key>

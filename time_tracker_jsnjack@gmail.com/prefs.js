@@ -20,11 +20,11 @@ const AdjustTimePage = GObject.registerClass(
       });
       this.settings = settings;
       this.initialPause = settings.get_int('pause-duration');
-      this.initialStartTime = new Date(settings.get_string('start-time'));
+      this.initialStartTime = settings.get_uint('state-start-time');
 
       this.groupAdjustStartTime = new Adw.PreferencesGroup({
         title: _('Adjust start time'),
-        description: _('Start time: ') + this.initialStartTime.toLocaleString(),
+        description: _('Start time: ') + (new Date(this.initialStartTime * 1000)).toLocaleString(),
       });
 
       this.spinHoursStart = new Adw.SpinRow({
@@ -59,7 +59,7 @@ const AdjustTimePage = GObject.registerClass(
         title: _('Adjust pause duration'),
       });
 
-      const pauseDuration = settings.get_int('pause-duration') / 1000;
+      const pauseDuration = settings.get_int('pause-duration');
       this.spinHoursPause = new Adw.SpinRow({
         title: _('Hours'),
         adjustment: new Gtk.Adjustment({
@@ -96,15 +96,13 @@ const AdjustTimePage = GObject.registerClass(
       const hours = this.spinHoursStart.get_value();
       const mins = this.spinMinStart.get_value();
       // Replace old start-time date with the new one
-      const change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
-      const new_start_time_obj = new Date(
-        this.initialStartTime.getTime() + change);
-      this.settings.set_string('start-time', new_start_time_obj.toString());
+      const change = hours * 60 * 60 + mins * 60;
+      this.settings.set_uint('state-start-time', this.initialStartTime + change);
       // Mark time for update
       this.settings.set_boolean('update-start-time', true);
 
       this.groupAdjustStartTime.description = _('Start time: ') +
-        new_start_time_obj.toLocaleString();
+        (new Date((this.initialStartTime + change) * 1000)).toLocaleString();
     }
 
     _adjustPause () {
@@ -112,7 +110,7 @@ const AdjustTimePage = GObject.registerClass(
       const mins = this.spinMinPause.get_value();
 
       // Update pause-duration
-      const change = hours * 60 * 60 * 1000 + mins * 60 * 1000;
+      const change = hours * 60 * 60 + mins * 60;
       this.settings.set_int('pause-duration', this.initialPause + change);
       // Mark time for update
       this.settings.set_boolean('update-start-time', true);
