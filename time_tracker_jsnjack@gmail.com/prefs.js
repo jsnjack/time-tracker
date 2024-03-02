@@ -25,7 +25,8 @@ const AdjustTimePage = GObject.registerClass(
 
       this.groupAdjustStartTime = new Adw.PreferencesGroup({
         title: _('Adjust start time'),
-        description: _('Start time: ') + (new Date(this.initialStartTime * 1000)).toLocaleString(),
+        description: _('Start time: ') +
+          (new Date(this.initialStartTime * 1000)).toLocaleString(),
       });
 
       this.spinHoursStart = new Adw.SpinRow({
@@ -98,7 +99,8 @@ const AdjustTimePage = GObject.registerClass(
       const mins = this.spinMinStart.get_value();
       // Replace old start-time date with the new one
       const change = hours * 60 * 60 + mins * 60;
-      this.settings.set_uint('state-start-time', this.initialStartTime + change);
+      this.settings.set_uint('state-start-time',
+        this.initialStartTime + change);
       // Mark time for update
       this.settings.set_boolean('update-start-time', true);
 
@@ -241,6 +243,16 @@ const BehaviorPage = GObject.registerClass(
 
       this.add(groupLogging);
 
+      const groupStartOnReset = new Adw.PreferencesGroup();
+      const switchStartOnReset = new Adw.SwitchRow({
+        title: _('Start tracker when restart timer'),
+      });
+
+      this.settings.bind('pref-start-on-reset', switchStartOnReset, 'active',
+        Gio.SettingsBindFlags.DEFAULT);
+
+      groupStartOnReset.add(switchStartOnReset);
+      this.add(groupStartOnReset);
     }
   },
 );

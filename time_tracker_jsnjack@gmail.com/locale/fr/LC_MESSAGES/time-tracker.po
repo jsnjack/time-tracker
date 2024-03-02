@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-03-02 23:02+0300\n"
+"POT-Creation-Date: 2024-03-02 23:48+0300\n"
 "PO-Revision-Date: 2016-01-05 00:06+0300\n"
 "Last-Translator: DAEM Q.\n"
 "Language: fr\n"
@@ -92,6 +92,10 @@ msgstr ""
 
 #: time_tracker_jsnjack@gmail.com/prefs.js:233
 msgid "Log changes of time tracker state"
+msgstr ""
+
+#: time_tracker_jsnjack@gmail.com/prefs.js:246
+msgid "Start tracker when restart timer"
 msgstr ""
 
 #, fuzzy

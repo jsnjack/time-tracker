@@ -175,8 +175,11 @@ const TimeTracker = GObject.registerClass(
       this.log('reset');
       this._startTime = getUintTime();
       this._settings.set_uint('state-start-time', this._startTime);
+      this._settings.set_uint('state-pause-start-time', this._startTime);
       this._settings.set_int('pause-duration', 0);
-      this._settings.set_boolean('paused', false);
+      if (this._settings.get_boolean('pref-start-on-reset')) {
+        this._settings.set_boolean('paused', false);
+      }
       this.updateIndicatorStyle();
     }
 

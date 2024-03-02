@@ -51,6 +51,11 @@
       <summary>Logging</summary>
       <description>Log changes of time tracker state</description>
     </key>
+    <key name="pref-start-on-reset" type="b">
+      <default>true</default>
+      <summary>Start on restart</summary>
+      <description>Start tracker when restart timer</description>
+    </key>
     <key name="update-start-time" type="b">
       <default>false</default>
       <summary>Update start time</summary>
