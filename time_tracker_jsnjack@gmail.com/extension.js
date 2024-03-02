@@ -53,10 +53,17 @@ const TimeTracker = GObject.registerClass(
       this._settings.set_boolean('paused-by-screen-lock', false);
 
       this._pauseMenu = this.menu.addAction(_('Resume'),
-        this.onToggle.bind(this));
-      this.menu.addAction(_('Restart'), this.onReset.bind(this));
+        this.onToggle.bind(this),
+        'media-playback-start-symbolic'
+      );
+      this.menu.addAction(_('Restart'),
+        this.onReset.bind(this),
+        'view-refresh-symbolic'
+      );
       this.menu.addAction(_('Preferences'),
-        (() => this._extention.openPreferences()).bind(this));
+        (() => this._extention.openPreferences()),
+        'org.gnome.Settings-symbolic',
+      );
 
       this.updateIndicatorStyle();
     }
@@ -69,6 +76,7 @@ const TimeTracker = GObject.registerClass(
           'color: ' + this._settings.get_string('indicator-paused-color') +
           ';');
         this._pauseMenu?.label.set_text(_('Pause'));
+        this._pauseMenu?.setIcon('media-playback-pause-symbolic');
       } else {
         this._label.set_style(
           'color: ' + this._settings.get_string('indicator-paused-color') +
@@ -76,6 +84,7 @@ const TimeTracker = GObject.registerClass(
         this._pauseMenu?.set_style(
           'color: ' + this._settings.get_string('indicator-color') + ';');
         this._pauseMenu?.label.set_text(_('Resume'));
+        this._pauseMenu?.setIcon('media-playback-start-symbolic');
       }
     }
 

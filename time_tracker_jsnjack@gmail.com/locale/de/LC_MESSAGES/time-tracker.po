@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Gnome Shell Extension Time tracker\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2024-02-25 12:24+0300\n"
+"POT-Creation-Date: 2024-03-02 13:15+0300\n"
 "PO-Revision-Date: 2014-06-08 15:19+0100\n"
 "Last-Translator: Jonatan Zeidler <jonatan_zeidler@gmx.de>\n"
 "Language-Team: German <jonatan_zeidler@gmx.de>\n"
@@ -18,19 +18,19 @@ msgstr ""
 "X-Generator: Poedit 1.5.4\n"
 
 #: time_tracker_jsnjack@gmail.com/extension.js:55
-#: time_tracker_jsnjack@gmail.com/extension.js:78
+#: time_tracker_jsnjack@gmail.com/extension.js:86
 msgid "Resume"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:57
+#: time_tracker_jsnjack@gmail.com/extension.js:59
 msgid "Restart"
 msgstr "Neustart"
 
-#: time_tracker_jsnjack@gmail.com/extension.js:58
+#: time_tracker_jsnjack@gmail.com/extension.js:63
 msgid "Preferences"
 msgstr ""
 
-#: time_tracker_jsnjack@gmail.com/extension.js:71
+#: time_tracker_jsnjack@gmail.com/extension.js:78
 msgid "Pause"
 msgstr ""
 
