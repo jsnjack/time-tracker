@@ -5,13 +5,14 @@ import GLib from 'gi://GLib';
 import Clutter from 'gi://Clutter';
 import St from 'gi://St';
 import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 import {
   Extension,
   gettext as _,
 } from 'resource:///org/gnome/shell/extensions/extension.js';
 import * as PanelMenu from 'resource:///org/gnome/shell/ui/panelMenu.js';
 
-const getUintTime = (ms = Date.now()) => Math.floor(ms / 1000)
+const getUintTime = (ms = Date.now()) => Math.floor(ms / 1000);
 
 const TimeTracker = GObject.registerClass(
   class TimeTracker extends PanelMenu.Button {
@@ -45,10 +46,12 @@ const TimeTracker = GObject.registerClass(
           }
           this._settings.set_string('start-time', '');
 
-          this._settings.set_uint('state-pause-start-time', getUintTime((new Date(
-            this._settings.get_string('pause-start-time'))).getTime() || 0));
+          this._settings.set_uint('state-pause-start-time',
+            getUintTime((new Date(
+              this._settings.get_string('pause-start-time'))).getTime() || 0));
 
-          this._settings.set_int('pause-duration', getUintTime(this._settings.get_int('pause-duration')));
+          this._settings.set_int('pause-duration',
+            getUintTime(this._settings.get_int('pause-duration')));
         }
       }
       // If creation of Date object failed, create a new one
@@ -57,7 +60,7 @@ const TimeTracker = GObject.registerClass(
         this._settings.set_uint('state-start-time', this._startTime);
       }
       this._timeout = GLib.timeout_add(1000, GLib.PRIORITY_LOW, () => {
-        this.refresh();
+        this._label.set_text(this.getTrackedTime());
         return true;
       });
 
@@ -68,14 +71,15 @@ const TimeTracker = GObject.registerClass(
         this.onToggle();
       }
       this._settings.set_boolean('paused-by-screen-lock', false);
+      this.log('init');
 
       this._pauseMenu = this.menu.addAction(_('Resume'),
         this.onToggle.bind(this),
-        'media-playback-start-symbolic'
+        'media-playback-start-symbolic',
       );
       this.menu.addAction(_('Restart'),
         this.onReset.bind(this),
-        'view-refresh-symbolic'
+        'view-refresh-symbolic',
       );
       this.menu.addAction(_('Preferences'),
         (() => this._extention.openPreferences()),
@@ -105,9 +109,8 @@ const TimeTracker = GObject.registerClass(
       }
     }
 
-    refresh () {
+    getTrackedTime () {
       // Get difference between start time and current time
-      // and show it
       let current_time = getUintTime(),
         timer;
       // Check if start-time needs update:
@@ -126,7 +129,8 @@ const TimeTracker = GObject.registerClass(
       }
       // Get difference between two times in secs
       let difference =
-        (current_time - this._startTime - this._settings.get_int('pause-duration'));
+        (current_time - this._startTime -
+          this._settings.get_int('pause-duration'));
       const hours = Math.floor(difference / 3600);
       if (hours !== 0) {
         difference = difference - hours * 3600;
@@ -142,7 +146,7 @@ const TimeTracker = GObject.registerClass(
       } else {
         timer = '%d:%02d'.format(hours, mins);
       }
-      this._label.set_text(timer);
+      return timer;
     }
 
     onToggle () {
@@ -153,18 +157,22 @@ const TimeTracker = GObject.registerClass(
         // Pause timer
         this._settings.set_uint('state-pause-start-time', current_time);
         this._settings.set_boolean('paused', true);
+        this.log('pause');
       } else {
         // Resume timer
-        const pause_start_time = this._settings.get_uint('state-pause-start-time');
+        const pause_start_time = this._settings.get_uint(
+          'state-pause-start-time');
         this._settings.set_int('pause-duration',
           this._settings.get_int('pause-duration') +
           (current_time - pause_start_time));
         this._settings.set_boolean('paused', false);
+        this.log('resume');
       }
       this.updateIndicatorStyle();
     }
 
     onReset () {
+      this.log('reset');
       this._startTime = getUintTime();
       this._settings.set_uint('state-start-time', this._startTime);
       this._settings.set_int('pause-duration', 0);
@@ -178,10 +186,32 @@ const TimeTracker = GObject.registerClass(
       const paused = this._settings.get_boolean('paused');
       if (pause_during_screen_lock && !paused) {
         this.onToggle();
+        this.log('destroy');
         this._settings.set_boolean('paused-by-screen-lock', true);
       }
       GLib.Source.remove(this._timeout);
+
+      if (this._logOutputStream) {
+        this._logOutputStream.close(null);
+      }
       this?.destroy();
+    }
+
+    log (event) {
+      if (!this._settings.get_boolean('pref-log-change-state')) {
+        return;
+      }
+      if (!this._logOutputStream) {
+        const filepath = GLib.build_filenamev(
+          [GLib.get_home_dir(), 'timeTrack.log']);
+        const file = Gio.File.new_for_path(filepath);
+
+        this._logOutputStream = file.append_to(Gio.FileCreateFlags.NONE, null);
+      }
+      const bytes = new GLib.Bytes(
+        `${new Date().toISOString()}: [${event}] ${this.getTrackedTime()}\n`,
+      );
+      this._logOutputStream.write_bytes(bytes, null);
     }
   });
 

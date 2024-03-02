@@ -46,6 +46,11 @@
       <summary>Show seconds</summary>
       <description>Set to true to show seconds</description>
     </key>
+    <key name="pref-log-change-state" type="b">
+      <default>false</default>
+      <summary>Logging</summary>
+      <description>Log changes of time tracker state</description>
+    </key>
     <key name="update-start-time" type="b">
       <default>false</default>
       <summary>Update start time</summary>

@@ -4,6 +4,7 @@ import Gtk from 'gi://Gtk';
 import Gdk from 'gi://Gdk';
 import Adw from 'gi://Adw';
 import GObject from 'gi://GObject';
+import Gio from 'gi://Gio';
 import {
   ExtensionPreferences,
   gettext as _,
@@ -225,6 +226,21 @@ const BehaviorPage = GObject.registerClass(
       groupOnLock.add(switchPauseOnLock);
 
       this.add(groupOnLock);
+
+      const groupLogging = new Adw.PreferencesGroup();
+
+      const switchLogging = new Adw.SwitchRow({
+        title: _('Log changes of time tracker state'),
+        subtitle: 'Log file is ~/timeTrack.log',
+      });
+
+      this.settings.bind('pref-log-change-state', switchLogging, 'active',
+        Gio.SettingsBindFlags.DEFAULT);
+
+      groupLogging.add(switchLogging);
+
+      this.add(groupLogging);
+
     }
   },
 );
